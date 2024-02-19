@@ -1,0 +1,322 @@
+@import url("https://fonts.googleapis.com/css2?family=Arsenal&family=Open+Sans:wght@300;700&family=Righteous&family=Roboto&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "urbanist", sans-serif;
+}
+
+.body-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  display: none;
+}
+
+.darken-active {
+  display: block;
+}
+
+.gallery img.full-image {
+  border-radius: 50px;
+  padding: 32px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  aspect-ratio: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  z-index: 11;
+  transition: transform 0.3s;
+}
+
+.gallery img.full-image.scale {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.header {
+  height: 100px;
+  text-align: right;
+  padding-right: 60px;
+  display: flex;
+  justify-content: right;
+}
+
+.burger {
+  display: none;
+}
+
+.title {
+  width: 80%;
+}
+
+.title-main {
+  font-size: 5rem;
+  font-weight: 400;
+}
+
+.artist {
+  font-size: 1.9rem;
+  font-weight: 300;
+}
+
+.bottom-line {
+  height: 6px;
+  background-color: black;
+  width: 82%;
+  float: right;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  padding: 200px 60px 0 60px;
+  width: max-content;
+  gap: 30px;
+}
+
+.menu ul {
+  text-decoration: none;
+  list-style: none;
+}
+
+.menu li,
+.spoiler {
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: ease-in 0.5s;
+}
+
+.spoiler:hover {
+  color: rgb(175, 4, 175);
+  border-bottom: 2px solid;
+}
+.spoiler-content {
+  border-bottom: 2px solid transparent;
+  transition: ease-in 0.5s;
+}
+.spoiler-content li:hover {
+  color: rgb(175, 4, 175);
+  border-bottom: 2px solid;
+}
+
+.gallery {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  padding: 60px;
+  margin-left: 310px;
+  flex-wrap: wrap;
+  float: right;
+}
+
+.gallery img {
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.gallery img:hover {
+  transform: scale(105%);
+}
+
+.spoiler-content {
+  display: none;
+  padding-left: 30px;
+}
+
+.spoiler {
+  position: relative;
+}
+
+.spoiler::before,
+.spoiler::after {
+  content: "";
+  width: 10px;
+  height: 1px;
+  background-color: black;
+  position: absolute;
+  top: 30px;
+  transition: 0.3s;
+}
+
+.spoiler::before {
+  transform: rotate(40deg);
+  left: 150px;
+}
+
+.spoiler::after {
+  transform: rotate(-40deg);
+  left: 157px;
+}
+
+.spoiler.spoiler-active::before {
+  transform: rotate(-40deg);
+}
+
+.spoiler.spoiler-active::after {
+  transform: rotate(40deg);
+}
+
+@media (max-width: 1441px) {
+  .header {
+    padding-right: 30px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1146px) {
+  .bottom-line {
+    width: 75%;
+  }
+
+  .menu {
+    font-size: 1.7rem;
+    padding: 200px 30px 0 30px;
+    height: 100%;
+    width: 250px;
+  }
+
+  .gallery {
+    margin-left: 250px;
+    gap: 30px;
+  }
+}
+@media (max-width: 769px) {
+  .header {
+    justify-content: space-between;
+  }
+
+  .bottom-line {
+    height: 4px;
+    width: 70%;
+  }
+
+  .gallery {
+    gap: 20px;
+    width: 100%;
+  }
+
+  .menu {
+    visibility: hidden;
+    transform: translateX(-300px);
+    transition: all 0.3s;
+  }
+  .menu-active {
+    visibility: visible;
+    padding: 90px 30px;
+    position: absolute;
+    top: 110px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    gap: 20px;
+    height: 90vh;
+    z-index: 5;
+    transform: translateX(0);
+  }
+
+  .burger {
+    z-index: 6;
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin: auto 30px;
+  }
+  .top-string {
+    position: absolute;
+    top: 5px;
+    width: 40px;
+    height: 2px;
+    background-color: black;
+    transform-origin: left top;
+    transition: 0.3s;
+  }
+
+  .middle-string {
+    position: absolute;
+    top: 19px;
+    width: 40px;
+    height: 2px;
+    background-color: black;
+    transition: 0.3s;
+  }
+
+  .bottom-string {
+    position: absolute;
+    top: 33px;
+    width: 40px;
+    height: 2px;
+    background-color: black;
+    transform-origin: left bottom;
+    transition: 0.3s;
+  }
+  .gallery {
+    margin: 0;
+    padding: 60px 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 80px;
+  }
+  .title-main {
+    font-size: 4rem;
+    font-weight: 400;
+  }
+
+  .artist {
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
+}
+@media (max-width: 400px) {
+  .header {
+    height: 60px;
+    padding-right: 16px;
+  }
+  .title-main {
+    font-size: 3rem;
+    font-weight: 400;
+  }
+
+  .artist {
+    font-size: 1rem;
+    font-weight: 300;
+  }
+  .burger {
+    margin: auto 16px;
+  }
+  .bottom-line {
+    height: 3px;
+  }
+  .menu {
+    padding-top: 0;
+    font-size: 1.7rem;
+    gap: 5px;
+  }
+}
