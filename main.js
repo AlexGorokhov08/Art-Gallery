@@ -84,6 +84,9 @@ function openFullImage(src) {
   gallery.appendChild(imgElement);
 }
 function closeFullImages() {
+  bodyOverlay.addEventListener('click', () => {
+    closeFullImages();
+  });
   fullImages.forEach((img) => {
     gallery.removeChild(img);
   });
@@ -100,16 +103,26 @@ const menu = document.querySelector(".menu");
 const middleString = document.querySelector(".middle-string");
 const topString = document.querySelector(".top-string");
 const bottomString = document.querySelector(".bottom-string");
+const spoilerContentItems = document.querySelectorAll('.spoiler-content li');
 
 burger.addEventListener("click", function () {
   menu.classList.toggle("menu-active");
   if (menu.classList.contains("menu-active")) {
-    middleString.style.scale = "0";
-    topString.style.rotate = "45deg";
-    bottomString.style.rotate = "-45deg";
+    middleString.style.transform = "scale(0)";
+    topString.style.transform = "rotate(45deg)";
+    bottomString.style.transform = "rotate(-45deg)";
   } else {
-    middleString.style.scale = "100%";
-    topString.style.rotate = "0deg";
-    bottomString.style.rotate = "0deg";
+    middleString.style.transform = "scale(1)";
+    topString.style.transform = "rotate(0deg)";
+    bottomString.style.transform = "rotate(0deg)";
   }
+});
+
+spoilerContentItems.forEach(item => {
+  item.addEventListener('click', () => {
+    menu.classList.remove('menu-active');
+    middleString.style.transform = "scale(1)";
+    topString.style.transform = "rotate(0deg)";
+    bottomString.style.transform = "rotate(0deg)";
+  });
 });

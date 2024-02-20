@@ -87,7 +87,6 @@
 }
 
 .menu ul {
-  text-decoration: none;
   list-style: none;
 }
 
@@ -96,19 +95,19 @@
   padding: 10px 0;
   cursor: pointer;
   border-bottom: 2px solid transparent;
-  transition: ease-in 0.5s;
+  transition: 0.5s;
 }
 
 .spoiler:hover {
-  color: rgb(175, 4, 175);
+  color: rgb(240, 6, 240);
   border-bottom: 2px solid;
 }
 .spoiler-content {
   border-bottom: 2px solid transparent;
-  transition: ease-in 0.5s;
+  transition: 0.5s;
 }
 .spoiler-content li:hover {
-  color: rgb(175, 4, 175);
+  color: rgb(240, 6, 240);
   border-bottom: 2px solid;
 }
 
@@ -221,6 +220,7 @@
     visibility: hidden;
     transform: translateX(-300px);
     transition: all 0.3s;
+    
   }
   .menu-active {
     visibility: visible;
@@ -232,8 +232,9 @@
     flex-direction: column;
     background-color: white;
     gap: 20px;
-    height: 90vh;
-    z-index: 5;
+    height: calc(100% - 110px);
+    width: 100%;
+    z-index: 10;
     transform: translateX(0);
   }
 
