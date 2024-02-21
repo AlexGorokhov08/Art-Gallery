@@ -2,7 +2,7 @@ import { imagesData } from "./imagesData.js";
 
 const spoilers = document.querySelectorAll(".spoiler");
 const gallery = document.querySelector(".gallery");
-const body = document.querySelector(".body");
+const loader = document.querySelector(".loader");
 gallery.innerHTML = "";
 
 let fullImages = [];
@@ -64,6 +64,7 @@ const bodyOverlay = document.getElementById("body-overlay");
 function openFullImage(src) {
   closeFullImages();
 
+  loader.style.display = "block";
   bodyOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
   bodyOverlay.classList.add("darken-active");
 
@@ -84,7 +85,8 @@ function openFullImage(src) {
   gallery.appendChild(imgElement);
 }
 function closeFullImages() {
-  bodyOverlay.addEventListener('click', () => {
+  loader.style.display = "none";
+  bodyOverlay.addEventListener("click", () => {
     closeFullImages();
   });
   fullImages.forEach((img) => {
@@ -96,14 +98,14 @@ function closeFullImages() {
   bodyOverlay.classList.remove("darken-active");
 }
 
-// burgeeer
+//--------------------------------------------------------------------------- BURGER----------------------------------------------------
 
 const burger = document.querySelector(".burger");
 const menu = document.querySelector(".menu");
 const middleString = document.querySelector(".middle-string");
 const topString = document.querySelector(".top-string");
 const bottomString = document.querySelector(".bottom-string");
-const spoilerContentItems = document.querySelectorAll('.spoiler-content li');
+const spoilerContentItems = document.querySelectorAll(".spoiler-content li");
 
 burger.addEventListener("click", function () {
   menu.classList.toggle("menu-active");
@@ -118,9 +120,9 @@ burger.addEventListener("click", function () {
   }
 });
 
-spoilerContentItems.forEach(item => {
-  item.addEventListener('click', () => {
-    menu.classList.remove('menu-active');
+spoilerContentItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    menu.classList.remove("menu-active");
     middleString.style.transform = "scale(1)";
     topString.style.transform = "rotate(0deg)";
     bottomString.style.transform = "rotate(0deg)";
