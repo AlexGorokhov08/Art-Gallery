@@ -104,6 +104,12 @@ export const imagesData = {
       lowQualitySrc:
         "./imgs/portraits/watercolor/lowsize/IMG20240220104651_lowSize.jpg",
     },
+    {
+      fullSizeSrc: "./imgs/portraits/watercolor/IMG_20240223_125822.jpg",
+      lowQualitySrc:
+        "./imgs/portraits/watercolor/lowsize/IMG_20240223_125822_lowSize.jpg",
+    },
+
   ],
   "other-pencil": [
     {
