@@ -1,5 +1,6 @@
 import { imagesData } from "./imagesData.js";
 
+const body = document.querySelector(".body");
 const spoilers = document.querySelectorAll(".spoiler");
 const gallery = document.querySelector(".gallery");
 const loader = document.querySelector(".loader");
@@ -70,6 +71,7 @@ window.addEventListener("popstate", function (event) {
 
 function openFullImage(src) {
   closeFullImages();
+  body.style.overflow = "hidden";
 
   loader.style.display = "block";
   bodyOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
@@ -94,6 +96,7 @@ function openFullImage(src) {
   history.pushState({ isFullImageOpen: true }, null, "#full-image");
 }
 function closeFullImages() {
+  body.style.overflow = "";
   loader.style.display = "none";
   bodyOverlay.addEventListener("click", () => {
     closeFullImages();
@@ -103,7 +106,7 @@ function closeFullImages() {
   });
   fullImages = [];
 
-  bodyOverlay.style.backgroundColor = "rgba(0, 0, 0, 0)";
+  bodyOverlay.style.backgroundColor = "";
   bodyOverlay.classList.remove("darken-active");
   history.back();
 }

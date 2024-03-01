@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "urbanist", sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
 .body-overlay {
@@ -13,7 +14,6 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
   z-index: 10;
   display: none;
 }
@@ -148,8 +148,8 @@
 .loader {
   overflow: hidden;
   display: none;
-  border: 8px solid rgb(255, 255, 255);
-  border-top: 8px solid rgba(0, 0, 0, 0);
+  border: 4px solid rgb(255, 255, 255);
+  border-top: 4px solid rgba(0, 0, 0, 0);
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -185,7 +185,6 @@
   border-radius: 15px;
   transition: 0.3s;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .gallery img:hover {
@@ -343,7 +342,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 431px) {
   .header {
     height: 100px;
     padding-right: 20px;
@@ -360,11 +359,11 @@
   }
 
   .burger {
-    margin: 20px;
+    margin: 25px;
   }
 
   .bottom-line {
-    height: 3px;
+    height: 2px;
   }
 
   .menu-active {
