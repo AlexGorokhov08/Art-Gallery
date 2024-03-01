@@ -175,6 +175,7 @@
   flex-wrap: wrap;
   float: right;
   margin-top: 100px;
+  transition: 0.3s;
 }
 
 .gallery img {
