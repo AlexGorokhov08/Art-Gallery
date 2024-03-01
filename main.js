@@ -61,6 +61,13 @@ function displayImages(tabClass) {
 }
 const bodyOverlay = document.getElementById("body-overlay");
 
+window.addEventListener("popstate", function (event) {
+  const fullImage = document.querySelector(".full-image");
+  if (fullImage) {
+    closeFullImages();
+  }
+});
+
 function openFullImage(src) {
   closeFullImages();
 
@@ -83,6 +90,8 @@ function openFullImage(src) {
 
   fullImages.push(imgElement);
   gallery.appendChild(imgElement);
+
+  history.pushState({ isFullImageOpen: true }, null, "#full-image");
 }
 function closeFullImages() {
   loader.style.display = "none";
@@ -96,6 +105,7 @@ function closeFullImages() {
 
   bodyOverlay.style.backgroundColor = "rgba(0, 0, 0, 0)";
   bodyOverlay.classList.remove("darken-active");
+  history.back();
 }
 
 //--------------------------------------------------------------------------- BURGER----------------------------------------------------
