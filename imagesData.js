@@ -99,6 +99,12 @@ export const imagesData = {
   ],
   "portraits-pencil": [
     {
+      id: 9,
+      fullSizeSrc: "imgs/portraits/pencil/IMG20240320085606.jpg",
+      lowQualitySrc:
+        "imgs/portraits/pencil/lowsize/IMG20240320085606_lowSize.jpg",
+    },
+    {
       id: 8,
       fullSizeSrc: "imgs/portraits/pencil/IMG_20240301_104623.jpg",
       lowQualitySrc:

@@ -29,7 +29,7 @@
 .header {
   position: absolute;
   background-color: white;
-  height: 145px;
+  height: 170px;
   width: 100vw;
   text-align: right;
   padding-right: 60px;
@@ -46,8 +46,15 @@
 }
 
 .title-main {
-  font-size: 5rem;
-  font-weight: 400;
+  margin-top: 10px;
+}
+
+.title-main img {
+  margin-right: 20px;
+  position: relative;
+  top: 1px;
+  width: 110px;
+  height: auto;
 }
 
 .artist {
@@ -99,6 +106,7 @@
   color: rgb(240, 6, 240);
   border-bottom: 2px solid;
 }
+
 .spoiler-content {
   display: none;
   padding-left: 30px;
@@ -174,7 +182,7 @@
   margin-left: 310px;
   flex-wrap: wrap;
   float: right;
-  margin-top: 100px;
+  margin-top: 120px;
   transition: 0.3s;
 }
 
@@ -260,14 +268,14 @@
 
   .menu {
     visibility: hidden;
-    transform: translateX(-300px);
+    transform: translatey(300px) translateX(-300px);
     transition: all 0.3s;
   }
 
   .menu-active {
     visibility: visible;
     position: absolute;
-    top: 100px;
+    top: 150px;
     left: 0;
     display: flex;
     flex-direction: column;
@@ -276,7 +284,7 @@
     height: 100vh;
     width: 100vw;
     z-index: 10;
-    transform: translateX(0);
+    transform: translatey(0);
     padding-top: 100px;
   }
 
@@ -322,16 +330,16 @@
 
 @media (max-width: 600px) {
   .header {
-    height: 125px;
+    height: 155px;
   }
 
   .burger {
     margin: 20px;
   }
 
-  .title-main {
-    font-size: 4rem;
-    font-weight: 400;
+  .title-main img {
+    width: 80px;
+    margin-right: 1px;
   }
 
   .artist {
@@ -339,19 +347,18 @@
     font-weight: 300;
   }
   .gallery {
-    margin-top: 80px;
+    margin-top: 100px;
   }
 }
 
 @media (max-width: 431px) {
   .header {
-    height: 100px;
+    height: 110px;
     padding-right: 20px;
   }
 
-  .title-main {
-    font-size: 3rem;
-    font-weight: 400;
+  .title-main img {
+    width: 60px;
   }
 
   .artist {
@@ -360,7 +367,7 @@
   }
 
   .burger {
-    margin: 25px;
+    margin: 45px 0 0 25px;
   }
 
   .bottom-line {
@@ -370,10 +377,11 @@
   .menu-active {
     padding-top: 50px;
     font-size: 1.7rem;
+    top: 100px;
     gap: 5px;
   }
 
   .gallery {
-    margin-top: 40px;
+    margin-top: 55px;
   }
 }
