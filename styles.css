@@ -63,7 +63,7 @@
 }
 
 .bottom-line {
-  height: 6px;
+  height: 4px;
   background-color: black;
   width: 100%;
   float: right;
@@ -256,7 +256,6 @@
   }
 
   .bottom-line {
-    height: 4px;
     width: 85%;
   }
 
@@ -331,6 +330,10 @@
 @media (max-width: 600px) {
   .header {
     height: 155px;
+  }
+
+  .bottom-line {
+    height: 3px;
   }
 
   .burger {
