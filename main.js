@@ -3,7 +3,6 @@ import { imagesData } from "./imagesData.js";
 const body = document.querySelector(".body");
 const spoilers = document.querySelectorAll(".spoiler");
 const gallery = document.querySelector(".gallery");
-const fullImage = document.querySelector(".full-image");
 const loader = document.querySelector(".loader");
 const close = document.querySelector(".close");
 
@@ -66,6 +65,7 @@ function displayImages(tabClass) {
 const bodyOverlay = document.getElementById("body-overlay");
 
 window.addEventListener("popstate", function (event) {
+  const fullImage = document.querySelector(".full-image");
   if (fullImage) {
     closeFullImages();
   }
