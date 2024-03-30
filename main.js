@@ -3,7 +3,10 @@ import { imagesData } from "./imagesData.js";
 const body = document.querySelector(".body");
 const spoilers = document.querySelectorAll(".spoiler");
 const gallery = document.querySelector(".gallery");
+const fullImage = document.querySelector(".full-image");
 const loader = document.querySelector(".loader");
+const close = document.querySelector(".close");
+
 gallery.innerHTML = "";
 
 let fullImages = [];
@@ -29,10 +32,10 @@ spoilers.forEach((spoiler, index) => {
 
     if (content.classList.contains("spoiler-content--open")) {
       spoiler.classList.add("spoiler-active");
-      content.style.display = "block";
+      content.style.maxHeight = content.scrollHeight + "px";
     } else {
       spoiler.classList.remove("spoiler-active");
-      content.style.display = "none";
+      content.style.maxHeight = null;
     }
   });
 
@@ -63,7 +66,6 @@ function displayImages(tabClass) {
 const bodyOverlay = document.getElementById("body-overlay");
 
 window.addEventListener("popstate", function (event) {
-  const fullImage = document.querySelector(".full-image");
   if (fullImage) {
     closeFullImages();
   }
@@ -72,7 +74,6 @@ window.addEventListener("popstate", function (event) {
 function openFullImage(src) {
   closeFullImages();
   body.style.overflow = "hidden";
-
   loader.style.display = "block";
   bodyOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
   bodyOverlay.classList.add("darken-active");
@@ -80,14 +81,15 @@ function openFullImage(src) {
   const imgElement = document.createElement("img");
   imgElement.src = src;
   imgElement.classList.add("full-image");
-
-  imgElement.addEventListener("click", () => {
+  close.addEventListener("click", () => {
     imgElement.classList.remove("scale");
     closeFullImages();
   });
 
   imgElement.addEventListener("load", () => {
     imgElement.classList.add("scale");
+    loader.style.display = "none";
+    close.style.display = "flex";
   });
 
   fullImages.push(imgElement);
@@ -95,9 +97,10 @@ function openFullImage(src) {
 
   history.pushState({ isFullImageOpen: true }, null, "#full-image");
 }
+
 function closeFullImages() {
   body.style.overflow = "";
-  loader.style.display = "none";
+  close.style.display = "none";
   bodyOverlay.addEventListener("click", () => {
     closeFullImages();
   });
