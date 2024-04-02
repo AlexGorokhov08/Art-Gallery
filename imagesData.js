@@ -161,6 +161,12 @@ export const imagesData = {
   ],
   "other-watercolor": [
     {
+      id: 10,
+      fullSizeSrc: "imgs/other/watercolor/IMG_20240402_152819.jpg",
+      lowQualitySrc:
+        "imgs/other/watercolor/lowsize/IMG_20240402_152819_lowSize.jpg",
+    },
+    {
       id: 9,
       fullSizeSrc: "imgs/other/watercolor/IMG20240331091857.jpg",
       lowQualitySrc:
