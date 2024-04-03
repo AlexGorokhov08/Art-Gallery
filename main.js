@@ -19,7 +19,7 @@ Object.values(imagesData)
     img.addEventListener("click", () => {
       openFullImage(imageData.fullSizeSrc);
     });
-
+    img.setAttribute("loading", "lazy");
     gallery.appendChild(img);
   });
 
@@ -28,14 +28,12 @@ spoilers.forEach((spoiler, index) => {
 
   spoiler.addEventListener("click", () => {
     content.classList.toggle("spoiler-content--open");
-
-    if (content.classList.contains("spoiler-content--open")) {
-      spoiler.classList.add("spoiler-active");
-      content.style.maxHeight = content.scrollHeight + "px";
-    } else {
-      spoiler.classList.remove("spoiler-active");
-      content.style.maxHeight = null;
-    }
+    spoiler.classList.toggle("spoiler-active");
+    content.style.maxHeight = content.classList.contains(
+      "spoiler-content--open",
+    )
+      ? content.scrollHeight + "px"
+      : null;
   });
 
   const contentItems = content.querySelectorAll("li");
@@ -54,7 +52,7 @@ function displayImages(tabClass) {
   images.forEach((imageData) => {
     const img = document.createElement("img");
     img.src = imageData.lowQualitySrc;
-
+    img.setAttribute("loading", "lazy");
     img.addEventListener("click", () => {
       openFullImage(imageData.fullSizeSrc);
     });
@@ -101,9 +99,6 @@ function openFullImage(src) {
 function closeFullImages() {
   body.style.overflow = "";
   close.style.display = "none";
-  bodyOverlay.addEventListener("click", () => {
-    closeFullImages();
-  });
   fullImages.forEach((img) => {
     gallery.removeChild(img);
   });
@@ -113,6 +108,12 @@ function closeFullImages() {
   bodyOverlay.classList.remove("darken-active");
   history.back();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  bodyOverlay.addEventListener("click", () => {
+    closeFullImages();
+  });
+});
 
 //--------------------------------------------------------------------------- BURGER----------------------------------------------------
 
