@@ -1,6 +1,12 @@
 export const imagesData = {
   "portraits-watercolor": [
     {
+      id: 17,
+      fullSizeSrc: "imgs/portraits/watercolor/IMG_20240416_144003.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/IMG_20240416_144003_lowSize.jpg",
+    },
+    {
       id: 16,
       fullSizeSrc: "imgs/portraits/watercolor/IMG_20240314_094322.jpg",
       lowQualitySrc:

@@ -172,6 +172,23 @@
   animation: animloader 1s linear infinite alternate;
 }
 
+.full-image {
+  transition: transform 0.4s ease-in-out;
+  transform-origin: center center;
+}
+
+.full-image.zoomed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(3);
+  z-index: 10;
+  opacity: 1;
+}
+
+.full-image.reset {
+  transform: translate(-50%, -50%) scale(1);
+}
 @keyframes animloader {
   0% {
     box-shadow: -38px -12px, -14px 0, 14px 0, 38px 0;
@@ -232,6 +249,8 @@
 .gallery img.full-image.scale {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
+  z-index: 11;
+  transition: transform 0.4s ease-in-out;
 }
 
 .close {
