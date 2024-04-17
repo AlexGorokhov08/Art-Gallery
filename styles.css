@@ -189,6 +189,14 @@
 .full-image.reset {
   transform: translate(-50%, -50%) scale(1);
 }
+.full-image.zoomed:hover {
+  cursor: zoom-in;
+}
+
+.full-image.zoomed:active {
+  cursor: move;
+}
+
 @keyframes animloader {
   0% {
     box-shadow: -38px -12px, -14px 0, 14px 0, 38px 0;

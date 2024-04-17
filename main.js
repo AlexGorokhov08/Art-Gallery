@@ -11,6 +11,11 @@ gallery.innerHTML = "";
 
 let fullImages = [];
 let lastTouchStart = 0;
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let startOffsetX = 0;
+let startOffsetY = 0;
 
 function createImageElement(src, clickHandler) {
   const img = document.createElement("img");
@@ -85,12 +90,7 @@ function openFullImage(src) {
   const imgElement = document.createElement("img");
   imgElement.src = src;
   imgElement.classList.add("full-image");
-
-  let startX = 0;
-  let startY = 0;
-  let startOffsetX = 0;
-  let startOffsetY = 0;
-  let isDragging = false;
+  imgElement.style.cursor = "zoom-in";
 
   imgElement.addEventListener("dblclick", () => {
     zoomFullImage(imgElement);
@@ -180,6 +180,7 @@ function openFullImage(src) {
 
 function zoomFullImage(imgElement, clickX, clickY) {
   if (imgElement.classList.contains("zoomed")) {
+    imgElement.style.cursor = "zoom-in";
     imgElement.style.transition =
       "transform 0.4s ease-in-out, top 0.4s ease-in-out, left 0.4s ease-in-out";
     imgElement.style.transform = "translate(-50%, -50%) scale(1)";
@@ -187,11 +188,25 @@ function zoomFullImage(imgElement, clickX, clickY) {
     imgElement.style.left = "50%";
     imgElement.classList.remove("zoomed");
   } else {
+    imgElement.style.cursor = "move";
+    const rect = imgElement.getBoundingClientRect();
+    const offsetX = window.innerWidth / 2 - rect.left;
+    const offsetY = window.innerHeight / 2 - rect.top;
+    const scale = 3;
+
     imgElement.style.transition = "transform 0.4s ease-in-out";
-    imgElement.style.transformOrigin = `${clickX}px ${clickY}px`;
-    imgElement.style.transform = "translate(-50%, -50%) scale(3)";
+    imgElement.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+    imgElement.style.transform = `translate(-${offsetX}px, -${offsetY}px) scale(${scale})`;
     imgElement.classList.add("zoomed");
   }
+
+  setTimeout(() => {
+    if (imgElement.classList.contains("zoomed")) {
+      imgElement.style.cursor = "move";
+    } else {
+      imgElement.style.cursor = "zoom-in";
+    }
+  }, 400);
 }
 
 function closeFullImages() {
