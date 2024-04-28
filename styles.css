@@ -77,6 +77,87 @@
   padding-left: 10px;
 }
 
+.theme-light {
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+.theme-dark {
+  background: rgb(25, 25, 25);
+  color: rgb(255, 255, 255);
+}
+
+.theme-light .svg-img {
+  filter: invert(0);
+}
+
+.theme-dark .svg-img {
+  filter: invert(1);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 2px;
+  right: -6px;
+  bottom: 0;
+  border: 1px solid rgb(240, 6, 240);
+  transition: 0.3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 40px;
+  left: -3px;
+  bottom: 4px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border: 1px solid rgb(240, 6, 240);
+  background: rgb(255, 255, 255) url("imgs/icons/moon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input:checked + .slider {
+  background: rgb(255, 184, 255);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+  background: rgb(77, 76, 76) url("imgs/icons/sun.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.slider.round {
+  border-radius: 30px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
 .menu {
   position: absolute;
   top: 0;
@@ -106,7 +187,7 @@
 .spoiler-content {
   padding-left: 20px;
   transition: 0.2s;
-  color: rgb(61, 61, 61);
+  font-weight: 200;
   transform: scale(100%);
   max-height: 0;
   overflow: hidden;
@@ -131,7 +212,7 @@
   content: "";
   width: 10px;
   height: 1px;
-  background-color: black;
+  background-color: rgb(240, 6, 240);
   position: absolute;
   top: 28px;
   transition: 0.3s;

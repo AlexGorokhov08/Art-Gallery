@@ -6,6 +6,8 @@ const gallery = document.querySelector(".gallery");
 const loader = document.querySelector(".loader");
 const close = document.querySelector(".close");
 const bodyOverlay = document.getElementById("body-overlay");
+const bottomLine = document.querySelector(".bottom-line");
+const header = document.querySelector(".header");
 
 gallery.innerHTML = "";
 
@@ -100,7 +102,7 @@ function openFullImage(src) {
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTouchStart;
 
-    if (tapLength < 500 && tapLength > 0) {
+    if (tapLength < 200 && tapLength > 0) {
       e.preventDefault();
       zoomFullImage(imgElement, e.touches[0].clientX, e.touches[0].clientY);
     }
@@ -258,3 +260,28 @@ spoilerContentItems.forEach((item) => {
     bottomString.style.transform = "rotate(0deg)";
   });
 });
+
+// -----------------------------DARK THEME--------------------------------------------------
+
+const strings = [topString, middleString, bottomString];
+
+const switchInput = document.getElementById("slider");
+
+switchInput.addEventListener("change", () => {
+  if (switchInput.checked) {
+    activateTheme("theme-dark", "rgb(25, 25, 25)", "white");
+  } else {
+    activateTheme("theme-light", "white", "black");
+  }
+});
+
+function activateTheme(themeClass, bodyColor, stringColor) {
+  body.classList.add(themeClass);
+  body.classList.remove(
+    themeClass === "theme-dark" ? "theme-light" : "theme-dark",
+  );
+  header.style.backgroundColor = bodyColor;
+  menu.style.backgroundColor = bodyColor;
+  strings.forEach((string) => (string.style.backgroundColor = stringColor));
+  bottomLine.style.backgroundColor = stringColor;
+}
