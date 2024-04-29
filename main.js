@@ -32,15 +32,47 @@ function addImageToGallery(src, clickHandler) {
   gallery.appendChild(img);
 }
 
-Object.values(imagesData)
-  .flat()
-  .forEach((imageData) => {
+function getDateFromSrc(src) {
+  const filename = src.split("/").pop();
+  const dateString = filename.split("_")[0];
+  const year = dateString.substring(0, 4);
+  const month = dateString.substring(4, 6);
+  const day = dateString.substring(6, 8);
+  return new Date(`${year}-${month}-${day}`);
+}
+
+function displayAllImages() {
+  const allImages = Object.values(imagesData).flat();
+  allImages.sort((a, b) => {
+    const dateA = getDateFromSrc(a.lowQualitySrc);
+    const dateB = getDateFromSrc(b.lowQualitySrc);
+    return dateB - dateA;
+  });
+  gallery.innerHTML = "";
+  allImages.forEach((imageData) => {
     addImageToGallery(imageData.lowQualitySrc, () => {
       openFullImage(imageData.fullSizeSrc);
     });
   });
 
-spoilers.forEach((spoiler, index) => {
+  menu.classList.remove("menu-active");
+  middleString.style.transform = "scale(1)";
+  topString.style.transform = "rotate(0deg)";
+  bottomString.style.transform = "rotate(0deg)";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  displayAllImages();
+});
+
+const allButton = document.querySelector(".all-btn");
+
+allButton.addEventListener("click", () => {
+  displayAllImages();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+spoilers.forEach((spoiler) => {
   const content = spoiler.nextElementSibling;
 
   spoiler.addEventListener("click", () => {
@@ -48,10 +80,8 @@ spoilers.forEach((spoiler, index) => {
 
     if (content.classList.contains("spoiler-content--open")) {
       spoiler.classList.add("spoiler-active");
-      content.style.maxHeight = content.scrollHeight + "px";
     } else {
       spoiler.classList.remove("spoiler-active");
-      content.style.maxHeight = null;
     }
   });
 
@@ -73,6 +103,8 @@ function displayImages(tabClass) {
       openFullImage(imageData.fullSizeSrc);
     });
   });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 window.addEventListener("popstate", function (event) {
@@ -86,7 +118,7 @@ function openFullImage(src) {
   closeFullImages();
   body.style.overflow = "hidden";
   loader.style.display = "block";
-  bodyOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+  bodyOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.96)";
   bodyOverlay.classList.add("darken-active");
 
   const imgElement = document.createElement("img");
@@ -228,6 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
   bodyOverlay.addEventListener("click", () => {
     closeFullImages();
   });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 //--------------------------------------------------------------------------- BURGER----------------------------------------------------
