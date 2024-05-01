@@ -216,7 +216,7 @@ function zoomFullImage(imgElement, clickX, clickY) {
   if (imgElement.classList.contains("zoomed")) {
     imgElement.style.cursor = "zoom-in";
     imgElement.style.transition =
-      "transform 0.4s ease-in-out, top 0.4s ease-in-out, left 0.4s ease-in-out";
+      "transform 0.3s ease-in-out, top 0.3s ease-in-out, left 0.3s ease-in-out";
     imgElement.style.transform = "translate(-50%, -50%) scale(1)";
     imgElement.style.top = "50%";
     imgElement.style.left = "50%";
@@ -228,7 +228,7 @@ function zoomFullImage(imgElement, clickX, clickY) {
     const offsetY = window.innerHeight / 2 - rect.top;
     const scale = 3;
 
-    imgElement.style.transition = "transform 0.4s ease-in-out";
+    imgElement.style.transition = "transform 0.3s ease-in-out";
     imgElement.style.transformOrigin = `${offsetX}px ${offsetY}px`;
     imgElement.style.transform = `translate(-${offsetX}px, -${offsetY}px) scale(${scale})`;
     imgElement.classList.add("zoomed");
@@ -240,7 +240,7 @@ function zoomFullImage(imgElement, clickX, clickY) {
     } else {
       imgElement.style.cursor = "zoom-in";
     }
-  }, 400);
+  }, 300);
 }
 
 function closeFullImages() {
