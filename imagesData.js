@@ -3,87 +3,104 @@ export const imagesData = {
     {
       id: 17,
       fullSizeSrc: "imgs/portraits/watercolor/20240416_144003.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20240416_144003_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20240416_144003_lowSize.jpg",
     },
     {
       id: 16,
       fullSizeSrc: "imgs/portraits/watercolor/20240314_094322.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20240314_094322_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20240314_094322_lowSize.jpg",
     },
     {
       id: 15,
       fullSizeSrc: "imgs/portraits/watercolor/20240305_100349.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20240305_100349_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20240305_100349_lowSize.jpg",
     },
     {
       id: 14,
       fullSizeSrc: "imgs/portraits/watercolor/20240223_125822.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20240223_125822_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20240223_125822_lowSize.jpg",
     },
     {
       id: 13,
       fullSizeSrc: "imgs/portraits/watercolor/20240220_104651.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20240220_104651_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20240220_104651_lowSize.jpg",
     },
     {
       id: 12,
       fullSizeSrc: "imgs/portraits/watercolor/20240215_154311.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20240215_154311_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20240215_154311_lowSize.jpg",
     },
     {
       id: 11,
       fullSizeSrc: "imgs/portraits/watercolor/20240210_100859.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20240210_100859_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20240210_100859_lowSize.jpg",
     },
     {
       id: 10,
       fullSizeSrc: "imgs/portraits/watercolor/20240207_103655.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20240207_103655_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20240207_103655_lowSize.jpg",
     },
     {
       id: 9,
       fullSizeSrc: "imgs/portraits/watercolor/20231215_101019.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231215_101019_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231215_101019_lowSize.jpg",
     },
     {
       id: 8,
       fullSizeSrc: "imgs/portraits/watercolor/20231211_000052.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231211_000052_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231211_000052_lowSize.jpg",
     },
     {
       id: 7,
       fullSizeSrc: "imgs/portraits/watercolor/20231208_094629.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231208_094629_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231208_094629_lowSize.jpg",
     },
     {
       id: 6,
       fullSizeSrc: "imgs/portraits/watercolor/20231205_000049.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231205_000049_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231205_000049_lowSize.jpg",
     },
     {
       id: 5,
       fullSizeSrc: "imgs/portraits/watercolor/20231204_233358.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231204_233358_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231204_233358_lowSize.jpg",
     },
     {
       id: 4,
       fullSizeSrc: "imgs/portraits/watercolor/20231201_092652.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231201_092652_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231201_092652_lowSize.jpg",
     },
     {
       id: 3,
       fullSizeSrc: "imgs/portraits/watercolor/20231129_231759.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231129_231759_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231129_231759_lowSize.jpg",
     },
     {
       id: 2,
       fullSizeSrc: "imgs/portraits/watercolor/20231128_101912.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231128_101912_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231128_101912_lowSize.jpg",
     },
     {
       id: 1,
       fullSizeSrc: "imgs/portraits/watercolor/20231126_005610.jpg",
-      lowQualitySrc: "imgs/portraits/watercolor/lowsize/20231126_005610_lowSize.jpg",
+      lowQualitySrc:
+        "imgs/portraits/watercolor/lowsize/20231126_005610_lowSize.jpg",
     },
   ],
   "portraits-pencil": [

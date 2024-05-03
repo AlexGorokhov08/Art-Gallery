@@ -6,7 +6,7 @@ const gallery = document.querySelector(".gallery");
 const loader = document.querySelector(".loader");
 const close = document.querySelector(".close");
 const bodyOverlay = document.getElementById("body-overlay");
-const bottomLine = document.querySelector(".bottom-line");
+const bottomLines = document.querySelectorAll(".bottom-line");
 const header = document.querySelector(".header");
 
 gallery.innerHTML = "";
@@ -65,6 +65,17 @@ document.addEventListener("DOMContentLoaded", function () {
   displayAllImages();
 });
 
+const contactsBtn = document.querySelector(".contacts-btn");
+
+contactsBtn.addEventListener("click", () => {
+  burger.click();
+  const scrollOptions = {
+    top: document.body.scrollHeight,
+    behavior: "smooth",
+  };
+  window.scrollTo(scrollOptions);
+});
+
 const allButton = document.querySelector(".all-btn");
 
 allButton.addEventListener("click", () => {
@@ -72,16 +83,32 @@ allButton.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+function closeAllSpoilersExcept(currentSpoiler) {
+  spoilers.forEach((spoiler) => {
+    if (spoiler !== currentSpoiler) {
+      const content = spoiler.nextElementSibling;
+      content.classList.remove("spoiler-content--open");
+      spoiler.classList.remove("spoiler-active");
+    }
+  });
+}
+
 spoilers.forEach((spoiler) => {
   const content = spoiler.nextElementSibling;
 
   spoiler.addEventListener("click", () => {
-    content.classList.toggle("spoiler-content--open");
+    const isOpen = content.classList.contains("spoiler-content--open");
 
-    if (content.classList.contains("spoiler-content--open")) {
-      spoiler.classList.add("spoiler-active");
-    } else {
+    closeAllSpoilersExcept(spoiler);
+
+    if (isOpen) {
+      content.classList.remove("spoiler-content--open");
       spoiler.classList.remove("spoiler-active");
+    } else {
+      setTimeout(() => {
+        content.classList.add("spoiler-content--open");
+        spoiler.classList.add("spoiler-active");
+      }, 150);
     }
   });
 
@@ -316,5 +343,5 @@ function activateTheme(themeClass, bodyColor, stringColor) {
   header.style.backgroundColor = bodyColor;
   menu.style.backgroundColor = bodyColor;
   strings.forEach((string) => (string.style.backgroundColor = stringColor));
-  bottomLine.style.backgroundColor = stringColor;
+  bottomLines.forEach((line) => (line.style.backgroundColor = stringColor));
 }
