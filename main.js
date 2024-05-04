@@ -43,12 +43,12 @@ const manifestData = {
       src: "imgs/favicons/android-chrome-512x512.png",
       sizes: "512x512",
       type: "image/png",
-    },
+    }
   ],
-  display: "standalone",
-  orientation: "portrait",
-  background_color: prefersDarkMode ? "#252525" : "#ffffff",
   theme_color: prefersDarkMode ? "#252525" : "#ffffff",
+  background_color: prefersDarkMode ? "#252525" : "#ffffff",
+  display: "standalone",
+  orientation: "portrait"
 };
 
 updateManifest(manifestData);
@@ -57,10 +57,11 @@ function updateManifest(data) {
   const manifestElement = document.getElementById("webmanifest");
   if (manifestElement) {
     manifestElement.href = URL.createObjectURL(
-      new Blob([JSON.stringify(data)], { type: "application/json" }),
+      new Blob([JSON.stringify(data)], { type: "application/json" })
     );
   }
 }
+
 
 function activateTheme(themeClass, bodyColor, stringColor) {
   body.className = themeClass;
