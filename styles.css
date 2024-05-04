@@ -128,6 +128,16 @@ a:visited {
   filter: invert(1);
 }
 
+.theme-light .menu-active {
+  background-color: var(--white-color);
+  color: var(--black-color);
+}
+
+.theme-dark .menu-active {
+  background-color: rgb(25, 25, 25);
+  color: var(--white-color);
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background-color: rgb(25, 25, 25);

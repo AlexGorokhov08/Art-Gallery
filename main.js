@@ -1,6 +1,6 @@
 import { imagesData } from "./imagesData.js";
 
-const body = document.querySelector(".body");
+const body = document.body;
 const spoilers = document.querySelectorAll(".spoiler");
 const gallery = document.querySelector(".gallery");
 const loader = document.querySelector(".loader");
@@ -26,50 +26,6 @@ let startY = 0;
 let startOffsetX = 0;
 let startOffsetY = 0;
 
-function activateTheme(themeClass, bodyColor, stringColor) {
-  body.classList.add(themeClass);
-  body.classList.remove(
-    themeClass === "theme-dark" ? "theme-light" : "theme-dark",
-  );
-  header.style.backgroundColor = bodyColor;
-  menu.style.backgroundColor = bodyColor;
-  [topString, middleString, bottomString].forEach(
-    (string) => (string.style.backgroundColor = stringColor),
-  );
-  bottomLines.forEach((line) => (line.style.backgroundColor = stringColor));
-}
-
-function applyThemeBasedOnPreference() {
-  if (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  ) {
-    body.classList.add("theme-dark");
-    switchInput.checked = true;
-    activateTheme("theme-dark", "rgb(25, 25, 25)", "white");
-  } else {
-    body.classList.add("theme-light");
-    activateTheme("theme-light", "white", "black");
-  }
-}
-
-switchInput.addEventListener("change", () => {
-  if (switchInput.checked) {
-    activateTheme("theme-dark", "rgb(25, 25, 25)", "white");
-  } else {
-    activateTheme("theme-light", "white", "black");
-  }
-});
-
-function getDateFromSrc(src) {
-  const filename = src.split("/").pop();
-  const dateString = filename.split("_")[0];
-  const year = dateString.substring(0, 4);
-  const month = dateString.substring(4, 6);
-  const day = dateString.substring(6, 8);
-  return new Date(`${year}-${month}-${day}`);
-}
-
 const prefersDarkMode =
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -91,13 +47,6 @@ const manifestData = {
   ],
   display: "standalone",
   orientation: "portrait",
-  screenshots: [
-    {
-      src: prefersDarkMode ? "dark_splash.png" : "light_splash.png",
-      sizes: "512x512",
-      type: "image/png",
-    },
-  ],
   background_color: prefersDarkMode ? "#252525" : "#ffffff",
   theme_color: prefersDarkMode ? "#252525" : "#ffffff",
 };
@@ -111,6 +60,40 @@ function updateManifest(data) {
       new Blob([JSON.stringify(data)], { type: "application/json" }),
     );
   }
+}
+
+function activateTheme(themeClass, bodyColor, stringColor) {
+  body.className = themeClass;
+  header.style.backgroundColor = body.style.backgroundColor = bodyColor;
+  [topString, middleString, bottomString, ...bottomLines].forEach(
+    (string) => (string.style.backgroundColor = stringColor),
+  );
+}
+
+function applyThemeBasedOnPreference() {
+  const themeClass = prefersDarkMode ? "theme-dark" : "theme-light";
+  const bodyColor = prefersDarkMode ? "rgb(25, 25, 25)" : "white";
+  const stringColor = prefersDarkMode ? "white" : "black";
+
+  body.classList.add(themeClass);
+  switchInput.checked = prefersDarkMode;
+  activateTheme(themeClass, bodyColor, stringColor);
+}
+
+switchInput.addEventListener("change", () => {
+  const themeClass = switchInput.checked ? "theme-dark" : "theme-light";
+  const bodyColor = switchInput.checked ? "rgb(25, 25, 25)" : "white";
+  const stringColor = switchInput.checked ? "white" : "black";
+  activateTheme(themeClass, bodyColor, stringColor);
+});
+
+function getDateFromSrc(src) {
+  const filename = src.split("/").pop();
+  const dateString = filename.split("_")[0];
+  const year = dateString.substring(0, 4);
+  const month = dateString.substring(4, 6);
+  const day = dateString.substring(6, 8);
+  return new Date(`${year}-${month}-${day}`);
 }
 
 function createImageElement(src, clickHandler) {
@@ -208,7 +191,7 @@ spoilers.forEach((spoiler) => {
   });
 
   const contentItems = content.querySelectorAll("li");
-  contentItems.forEach((item) => {
+  Array.from(contentItems).forEach((item) => {
     item.addEventListener("click", () => {
       const currentTabClass = item.classList[0];
       displayImages(currentTabClass);
@@ -385,7 +368,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-//--------------------------------------------------------------------------- MENU ----------------------------------------------------
+//--------------------------------------------------------------------------- BURGER----------------------------------------------------
 
 burger.addEventListener("click", function () {
   menu.classList.toggle("menu-active");
