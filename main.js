@@ -40,25 +40,33 @@ function getDateFromSrc(src) {
   const day = dateString.substring(6, 8);
   return new Date(`${year}-${month}-${day}`);
 }
+async function displayAllImages() {
+  try {
+    await import("./imagesData.js");
 
-function displayAllImages() {
-  const allImages = Object.values(imagesData).flat();
-  allImages.sort((a, b) => {
-    const dateA = getDateFromSrc(a.lowQualitySrc);
-    const dateB = getDateFromSrc(b.lowQualitySrc);
-    return dateB - dateA;
-  });
-  gallery.innerHTML = "";
-  allImages.forEach((imageData) => {
-    addImageToGallery(imageData.lowQualitySrc, () => {
-      openFullImage(imageData.fullSizeSrc);
+    const allImages = Object.values(imagesData).flat();
+
+    allImages.sort((a, b) => {
+      const dateA = getDateFromSrc(a.lowQualitySrc);
+      const dateB = getDateFromSrc(b.lowQualitySrc);
+      return dateB - dateA;
     });
-  });
 
-  menu.classList.remove("menu-active");
-  middleString.style.transform = "scale(1)";
-  topString.style.transform = "rotate(0deg)";
-  bottomString.style.transform = "rotate(0deg)";
+    gallery.innerHTML = "";
+
+    allImages.forEach((imageData) => {
+      addImageToGallery(imageData.lowQualitySrc, () => {
+        openFullImage(imageData.fullSizeSrc);
+      });
+    });
+
+    menu.classList.remove("menu-active");
+    middleString.style.transform = "scale(1)";
+    topString.style.transform = "rotate(0deg)";
+    bottomString.style.transform = "rotate(0deg)";
+  } catch (error) {
+    console.error("Произошла ошибка:", error);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
