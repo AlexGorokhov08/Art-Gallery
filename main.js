@@ -8,6 +8,13 @@ const close = document.querySelector(".close");
 const bodyOverlay = document.getElementById("body-overlay");
 const bottomLines = document.querySelectorAll(".bottom-line");
 const header = document.querySelector(".header");
+const burger = document.querySelector(".burger");
+const menu = document.querySelector(".menu");
+const middleString = document.querySelector(".middle-string");
+const topString = document.querySelector(".top-string");
+const bottomString = document.querySelector(".bottom-string");
+const spoilerContentItems = document.querySelectorAll(".spoiler-content li");
+const switchInput = document.getElementById("slider");
 
 gallery.innerHTML = "";
 
@@ -18,6 +25,93 @@ let startX = 0;
 let startY = 0;
 let startOffsetX = 0;
 let startOffsetY = 0;
+
+function activateTheme(themeClass, bodyColor, stringColor) {
+  body.classList.add(themeClass);
+  body.classList.remove(
+    themeClass === "theme-dark" ? "theme-light" : "theme-dark",
+  );
+  header.style.backgroundColor = bodyColor;
+  menu.style.backgroundColor = bodyColor;
+  [topString, middleString, bottomString].forEach(
+    (string) => (string.style.backgroundColor = stringColor),
+  );
+  bottomLines.forEach((line) => (line.style.backgroundColor = stringColor));
+}
+
+function applyThemeBasedOnPreference() {
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    body.classList.add("theme-dark");
+    switchInput.checked = true;
+    activateTheme("theme-dark", "rgb(25, 25, 25)", "white");
+  } else {
+    body.classList.add("theme-light");
+    activateTheme("theme-light", "white", "black");
+  }
+}
+
+switchInput.addEventListener("change", () => {
+  if (switchInput.checked) {
+    activateTheme("theme-dark", "rgb(25, 25, 25)", "white");
+  } else {
+    activateTheme("theme-light", "white", "black");
+  }
+});
+
+function getDateFromSrc(src) {
+  const filename = src.split("/").pop();
+  const dateString = filename.split("_")[0];
+  const year = dateString.substring(0, 4);
+  const month = dateString.substring(4, 6);
+  const day = dateString.substring(6, 8);
+  return new Date(`${year}-${month}-${day}`);
+}
+
+const prefersDarkMode =
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+const manifestData = {
+  name: "Art Gallery",
+  short_name: "Art Gallery",
+  icons: [
+    {
+      src: "imgs/favicons/android-chrome-192x192.png",
+      sizes: "192x192",
+      type: "image/png",
+    },
+    {
+      src: "imgs/favicons/android-chrome-512x512.png",
+      sizes: "512x512",
+      type: "image/png",
+    },
+  ],
+  display: "standalone",
+  orientation: "portrait",
+  screenshots: [
+    {
+      src: prefersDarkMode ? "dark_splash.png" : "light_splash.png",
+      sizes: "512x512",
+      type: "image/png",
+    },
+  ],
+  background_color: prefersDarkMode ? "#252525" : "#ffffff",
+  theme_color: prefersDarkMode ? "#252525" : "#ffffff",
+};
+
+updateManifest(manifestData);
+
+function updateManifest(data) {
+  const manifestElement = document.getElementById("webmanifest");
+  if (manifestElement) {
+    manifestElement.href = URL.createObjectURL(
+      new Blob([JSON.stringify(data)], { type: "application/json" }),
+    );
+  }
+}
 
 function createImageElement(src, clickHandler) {
   const img = document.createElement("img");
@@ -32,14 +126,6 @@ function addImageToGallery(src, clickHandler) {
   gallery.appendChild(img);
 }
 
-function getDateFromSrc(src) {
-  const filename = src.split("/").pop();
-  const dateString = filename.split("_")[0];
-  const year = dateString.substring(0, 4);
-  const month = dateString.substring(4, 6);
-  const day = dateString.substring(6, 8);
-  return new Date(`${year}-${month}-${day}`);
-}
 async function displayAllImages() {
   try {
     await import("./imagesData.js");
@@ -70,6 +156,7 @@ async function displayAllImages() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  applyThemeBasedOnPreference();
   displayAllImages();
 });
 
@@ -298,14 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-//--------------------------------------------------------------------------- BURGER----------------------------------------------------
-
-const burger = document.querySelector(".burger");
-const menu = document.querySelector(".menu");
-const middleString = document.querySelector(".middle-string");
-const topString = document.querySelector(".top-string");
-const bottomString = document.querySelector(".bottom-string");
-const spoilerContentItems = document.querySelectorAll(".spoiler-content li");
+//--------------------------------------------------------------------------- MENU ----------------------------------------------------
 
 burger.addEventListener("click", function () {
   menu.classList.toggle("menu-active");
@@ -328,28 +408,3 @@ spoilerContentItems.forEach((item) => {
     bottomString.style.transform = "rotate(0deg)";
   });
 });
-
-// -----------------------------DARK THEME--------------------------------------------------
-
-const strings = [topString, middleString, bottomString];
-
-const switchInput = document.getElementById("slider");
-
-switchInput.addEventListener("change", () => {
-  if (switchInput.checked) {
-    activateTheme("theme-dark", "rgb(25, 25, 25)", "white");
-  } else {
-    activateTheme("theme-light", "white", "black");
-  }
-});
-
-function activateTheme(themeClass, bodyColor, stringColor) {
-  body.classList.add(themeClass);
-  body.classList.remove(
-    themeClass === "theme-dark" ? "theme-light" : "theme-dark",
-  );
-  header.style.backgroundColor = bodyColor;
-  menu.style.backgroundColor = bodyColor;
-  strings.forEach((string) => (string.style.backgroundColor = stringColor));
-  bottomLines.forEach((line) => (line.style.backgroundColor = stringColor));
-}

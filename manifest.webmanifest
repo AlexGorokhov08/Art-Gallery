@@ -13,8 +13,22 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "screenshots": [
+    {
+      "src": "light_splash.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "dark_splash.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "background_color_light": "#ffffff",
+  "background_color_dark": "#252525",
+  "theme_color_light": "#ffffff",
+  "theme_color_dark": "#252525"
 }
