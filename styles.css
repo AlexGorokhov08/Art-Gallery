@@ -164,7 +164,7 @@ a:visited {
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border: 1px solid var(--pink-color);
-  background: var(--white-color) url("imgs/icons/moon.png");
+  background: var(--white-color) url("imgs/icons/moon.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -175,7 +175,7 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(24px);
-  background: rgb(77, 76, 76) url("imgs/icons/sun.png");
+  background: rgb(77, 76, 76) url("imgs/icons/sun.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
