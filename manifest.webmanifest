@@ -15,12 +15,6 @@
   ],
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "theme_colors": [
-    { "color": "#252525", "media": "(prefers-color-scheme: dark)" }
-  ],
-  "background_colors": [
-    { "color": "#252525", "media": "(prefers-color-scheme: dark)" }
-  ],
   "display": "standalone",
   "orientation": "portrait"
 }
