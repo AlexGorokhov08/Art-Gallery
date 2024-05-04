@@ -360,7 +360,7 @@ input:checked + .slider:before {
 .gallery {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   padding: 60px 60px 50px;
   margin-left: 300px;
@@ -485,6 +485,7 @@ a img:hover {
   }
 
   .gallery {
+    grid-template-columns: repeat(3, 1fr);
     margin-left: 265px;
     gap: 20px;
   }

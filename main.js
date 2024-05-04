@@ -26,43 +26,6 @@ let startY = 0;
 let startOffsetX = 0;
 let startOffsetY = 0;
 
-const prefersDarkMode =
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-const manifestData = {
-  name: "Art Gallery",
-  short_name: "Art Gallery",
-  icons: [
-    {
-      src: "imgs/favicons/android-chrome-192x192.png",
-      sizes: "192x192",
-      type: "image/png",
-    },
-    {
-      src: "imgs/favicons/android-chrome-512x512.png",
-      sizes: "512x512",
-      type: "image/png",
-    }
-  ],
-  theme_color: prefersDarkMode ? "#252525" : "#ffffff",
-  background_color: prefersDarkMode ? "#252525" : "#ffffff",
-  display: "standalone",
-  orientation: "portrait"
-};
-
-updateManifest(manifestData);
-
-function updateManifest(data) {
-  const manifestElement = document.getElementById("webmanifest");
-  if (manifestElement) {
-    manifestElement.href = URL.createObjectURL(
-      new Blob([JSON.stringify(data)], { type: "application/json" })
-    );
-  }
-}
-
-
 function activateTheme(themeClass, bodyColor, stringColor) {
   body.className = themeClass;
   header.style.backgroundColor = body.style.backgroundColor = bodyColor;
@@ -72,6 +35,9 @@ function activateTheme(themeClass, bodyColor, stringColor) {
 }
 
 function applyThemeBasedOnPreference() {
+  const prefersDarkMode =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
   const themeClass = prefersDarkMode ? "theme-dark" : "theme-light";
   const bodyColor = prefersDarkMode ? "rgb(25, 25, 25)" : "white";
   const stringColor = prefersDarkMode ? "white" : "black";
@@ -339,14 +305,6 @@ function zoomFullImage(imgElement, clickX, clickY) {
     imgElement.style.transform = `translate(-${offsetX}px, -${offsetY}px) scale(${scale})`;
     imgElement.classList.add("zoomed");
   }
-
-  setTimeout(() => {
-    if (imgElement.classList.contains("zoomed")) {
-      imgElement.style.cursor = "move";
-    } else {
-      imgElement.style.cursor = "zoom-in";
-    }
-  }, 300);
 }
 
 function closeFullImages() {
