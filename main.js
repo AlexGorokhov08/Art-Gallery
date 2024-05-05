@@ -1,5 +1,3 @@
-import { imagesData } from "./imagesData.js";
-
 const body = document.body;
 const spoilers = document.querySelectorAll(".spoiler");
 const gallery = document.querySelector(".gallery");
@@ -78,7 +76,8 @@ function addImageToGallery(src, clickHandler) {
 
 async function displayAllImages() {
   try {
-    await import("./imagesData.js");
+    const response = await fetch("imagesData.json");
+    const imagesData = await response.json();
 
     const allImages = Object.values(imagesData).flat();
 
@@ -93,6 +92,34 @@ async function displayAllImages() {
     allImages.forEach((imageData) => {
       addImageToGallery(imageData.lowQualitySrc, () => {
         openFullImage(imageData.fullSizeSrc);
+      });
+    });
+
+    spoilers.forEach((spoiler) => {
+      const content = spoiler.nextElementSibling;
+
+      spoiler.addEventListener("click", () => {
+        const isOpen = content.classList.contains("spoiler-content--open");
+
+        closeAllSpoilersExcept(spoiler);
+
+        if (isOpen) {
+          content.classList.remove("spoiler-content--open");
+          spoiler.classList.remove("spoiler-active");
+        } else {
+          setTimeout(() => {
+            content.classList.add("spoiler-content--open");
+            spoiler.classList.add("spoiler-active");
+          }, 150);
+        }
+      });
+
+      const contentItems = content.querySelectorAll("li");
+      Array.from(contentItems).forEach((item) => {
+        item.addEventListener("click", () => {
+          const currentTabClass = item.classList[0];
+          displayImages(currentTabClass, imagesData);
+        });
       });
     });
 
@@ -138,35 +165,7 @@ function closeAllSpoilersExcept(currentSpoiler) {
   });
 }
 
-spoilers.forEach((spoiler) => {
-  const content = spoiler.nextElementSibling;
-
-  spoiler.addEventListener("click", () => {
-    const isOpen = content.classList.contains("spoiler-content--open");
-
-    closeAllSpoilersExcept(spoiler);
-
-    if (isOpen) {
-      content.classList.remove("spoiler-content--open");
-      spoiler.classList.remove("spoiler-active");
-    } else {
-      setTimeout(() => {
-        content.classList.add("spoiler-content--open");
-        spoiler.classList.add("spoiler-active");
-      }, 150);
-    }
-  });
-
-  const contentItems = content.querySelectorAll("li");
-  Array.from(contentItems).forEach((item) => {
-    item.addEventListener("click", () => {
-      const currentTabClass = item.classList[0];
-      displayImages(currentTabClass);
-    });
-  });
-});
-
-function displayImages(tabClass) {
+function displayImages(tabClass, imagesData) {
   const images = imagesData[tabClass];
   gallery.innerHTML = "";
 
