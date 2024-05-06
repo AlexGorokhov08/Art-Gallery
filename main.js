@@ -298,7 +298,7 @@ function openFullImage(src) {
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTouchStart;
 
-    if (tapLength < 200 && tapLength > 0) {
+    if (tapLength < 200 && tapLength > 50) {
       e.preventDefault();
       zoomFullImage(imgElement);
     }
