@@ -264,10 +264,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Обработчик изменения адресной строки браузера
+// Обработчик события popstate для закрытия полноразмерного изображения при нажатии кнопки назад
 window.addEventListener("popstate", function (event) {
-  if (fullImage) {
-    closeFullImages(); // Закрываем полноразмерное изображение
+  if (window.location.hash !== "#full-image") {
+    closeFullImages();
   }
 });
 
