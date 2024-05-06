@@ -301,11 +301,6 @@ function openFullImage(src) {
     if (tapLength < 200 && tapLength > 50) {
       e.preventDefault();
       zoomFullImage(imgElement);
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      startOffsetX = imgElement.offsetLeft;
-      startOffsetY = imgElement.offsetTop;
-      return;
     }
 
     lastTouchStart = currentTime;
@@ -314,21 +309,11 @@ function openFullImage(src) {
       return;
     }
 
-    // Проверяем, если касаний больше двух, то запоминаем координаты каждого касания
-    if (e.touches.length >= 2) {
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      startX = (touch1.clientX + touch2.clientX) / 2;
-      startY = (touch1.clientY + touch2.clientY) / 2;
-      startOffsetX = imgElement.offsetLeft;
-      startOffsetY = imgElement.offsetTop;
-    } else {
-      const touch = e.touches[0];
-      startX = touch.clientX;
-      startY = touch.clientY;
-      startOffsetX = imgElement.offsetLeft;
-      startOffsetY = imgElement.offsetTop;
-    }
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    startOffsetX = imgElement.offsetLeft;
+    startOffsetY = imgElement.offsetTop;
   });
 
   imgElement.addEventListener("touchmove", (e) => {
@@ -338,61 +323,12 @@ function openFullImage(src) {
       return;
     }
 
-    // Если два касания, то вычисляем расстояние между ними для увеличения/уменьшения изображения
-    if (e.touches.length >= 2) {
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const currentX = (touch1.clientX + touch2.clientX) / 2;
-      const currentY = (touch1.clientY + touch2.clientY) / 2;
-      const currentDistance = Math.sqrt(
-        Math.pow(currentX - startX, 2) + Math.pow(currentY - startY, 2),
-      );
-      const startDistance = Math.sqrt(
-        Math.pow(touch1.clientX - touch2.clientX, 2) +
-          Math.pow(touch1.clientY - touch2.clientY, 2),
-      );
-      const scale = currentDistance / startDistance;
+    const touch = e.touches[0];
+    const offsetX = touch.clientX - startX;
+    const offsetY = touch.clientY - startY;
 
-      // Увеличиваем/уменьшаем изображение в соответствии с масштабом
-      imgElement.style.width = `${imgElement.offsetWidth * scale}px`;
-      imgElement.style.height = `${imgElement.offsetHeight * scale}px`;
-
-      // Обновляем начальные координаты и смещение для корректного перемещения изображения
-      startX = currentX;
-      startY = currentY;
-      startOffsetX = imgElement.offsetLeft;
-      startOffsetY = imgElement.offsetTop;
-
-      // Вычисляем новые координаты для центрирования изображения
-      const offsetX = startX - (startX - startOffsetX) * scale;
-      const offsetY = startY - (startY - startOffsetY) * scale;
-      imgElement.style.left = `${offsetX}px`;
-      imgElement.style.top = `${offsetY}px`;
-    } else {
-      const touch = e.touches[0];
-      const offsetX = touch.clientX - startX;
-      const offsetY = touch.clientY - startY;
-      imgElement.style.left = startOffsetX + offsetX + "px";
-      imgElement.style.top = startOffsetY + offsetY + "px";
-    }
-  });
-
-  // Обработчик жеста pinch для увеличения и уменьшения изображения
-  imgElement.addEventListener("gesturechange", (e) => {
-    e.preventDefault();
-
-    if (e.scale > 1) {
-      // Увеличение изображения
-      imgElement.style.transform = `scale(${e.scale})`;
-    } else {
-      // Уменьшение изображения
-      imgElement.style.transform = `scale(${e.scale})`;
-    }
-  });
-
-  // Сброс масштабирования после завершения жеста pinch
-  imgElement.addEventListener("gestureend", () => {
-    imgElement.style.transform = "scale(1)";
+    imgElement.style.left = startOffsetX + offsetX + "px";
+    imgElement.style.top = startOffsetY + offsetY + "px";
   });
 
   // Обработчики для перемещения изображения с помощью мыши
