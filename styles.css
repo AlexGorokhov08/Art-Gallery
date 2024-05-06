@@ -263,6 +263,11 @@ input:checked + .slider:before {
   transition: 0.3s;
 }
 
+.spoiler,
+.btn, .language {
+  font-weight: 600;
+}
+
 .btn:hover,
 .spoiler:hover,
 .language:hover {
@@ -271,7 +276,6 @@ input:checked + .slider:before {
 
 .spoiler-content {
   padding-left: 10px;
-  font-weight: 200;
   transform: scale(100%);
   max-height: 0;
   overflow: hidden;
@@ -289,6 +293,7 @@ input:checked + .slider:before {
 
 .spoiler {
   position: relative;
+
 }
 
 .spoiler::before,
