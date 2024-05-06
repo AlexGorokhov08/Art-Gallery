@@ -377,6 +377,24 @@ function openFullImage(src) {
     }
   });
 
+  // Обработчик жеста pinch для увеличения и уменьшения изображения
+  imgElement.addEventListener("gesturechange", (e) => {
+    e.preventDefault();
+
+    if (e.scale > 1) {
+      // Увеличение изображения
+      imgElement.style.transform = `scale(${e.scale})`;
+    } else {
+      // Уменьшение изображения
+      imgElement.style.transform = `scale(${e.scale})`;
+    }
+  });
+
+  // Сброс масштабирования после завершения жеста pinch
+  imgElement.addEventListener("gestureend", () => {
+    imgElement.style.transform = "scale(1)";
+  });
+
   // Обработчики для перемещения изображения с помощью мыши
   imgElement.addEventListener("mousedown", (e) => {
     e.preventDefault();
