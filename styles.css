@@ -514,7 +514,7 @@ a img:hover {
   }
 }
 
-@media (max-width: 769px) {
+@media only screen and (max-width: 769px) {
   .header {
     z-index: 15;
     padding-right: 20px;
@@ -530,7 +530,6 @@ a img:hover {
   }
 
   .gallery {
-    width: 100%;
     padding: 20px;
     margin-top: 160px;
     margin-left: 0;
@@ -604,7 +603,7 @@ a img:hover {
   }
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   .header {
     height: 155px;
   }
@@ -635,7 +634,7 @@ a img:hover {
   }
 }
 
-@media (max-width: 431px) {
+@media only screen and (max-width: 431px) {
   .header {
     height: 110px;
     padding-right: 20px;
@@ -671,7 +670,7 @@ a img:hover {
   }
 }
 
-@media (max-height: 460px) {
+@media only screen and (max-height: 460px) {
   .header {
     height: 110px;
   }
@@ -690,10 +689,10 @@ a img:hover {
   }
 
   .gallery {
+    width: 100%;
     gap: 15px;
     margin-top: 80px;
     padding-top: 40px;
-    margin-left: 180px;
   }
 
   .menu-container {
@@ -706,7 +705,6 @@ a img:hover {
     font-size: 1rem;
     gap: 15px;
     max-height: calc(100vh - 80px);
-    width: max-content;
   }
 
   .spoiler::before,
