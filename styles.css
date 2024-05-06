@@ -85,8 +85,9 @@ a:visited {
 }
 
 .artist {
+  font-family: "Neucha", sans-serif;
   font-size: 1.9rem;
-  font-weight: 400;
+  font-weight: 200;
 }
 
 .bottom-line {
@@ -264,7 +265,8 @@ input:checked + .slider:before {
 }
 
 .spoiler,
-.btn, .language {
+.btn,
+.language {
   font-weight: 600;
 }
 
@@ -293,7 +295,6 @@ input:checked + .slider:before {
 
 .spoiler {
   position: relative;
-
 }
 
 .spoiler::before,
