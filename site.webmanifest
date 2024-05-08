@@ -25,19 +25,7 @@
       "purpose": "maskable"
     }
   ],
-  "screenshots": [
-    {
-      "src": "imgs/favicons/screenshot1.png",
-      "type": "image/png",
-      "sizes": "1125x2436"
-    },
-    {
-      "src": "imgs/favicons/screenshot2.png",
-      "type": "image/png",
-      "sizes": "1920x1080",
-      "form_factor": "wide"
-    }
-  ],
+  
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
