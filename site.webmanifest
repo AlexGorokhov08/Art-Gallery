@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#f006f0",
+  "theme_color": "#ff8dff",
   "background_color": "#ffffff",
   "start_url": "https://art-gallery-snowy.vercel.app/",
   "display": "standalone",
