@@ -489,13 +489,33 @@ document
 let deferredPrompt; // Переменная для хранения объекта события beforeinstallprompt
 const installButton = document.getElementById("install_button");
 
+// Отображаем уведомление при открытии страницы, если PWA еще не установлено
+window.addEventListener("load", () => {
+  if (
+    !window.matchMedia("(display-mode: standalone)").matches &&
+    !window.navigator.standalone
+  ) {
+    showInstallPrompt();
+  }
+});
+
 window.addEventListener("beforeinstallprompt", (e) => {
   console.log("beforeinstallprompt fired");
   e.preventDefault();
   deferredPrompt = e;
+  showInstallButton();
+});
+
+// Функция отображения кнопки установки
+function showInstallButton() {
   installButton.hidden = false;
   installButton.addEventListener("click", installApp);
-});
+}
+
+// Функция отображения уведомления о возможности установки
+function showInstallPrompt() {
+  // Ваш код для отображения уведомления о возможности установки PWA
+}
 
 // Функция установки приложения
 function installApp() {
@@ -506,10 +526,8 @@ function installApp() {
   deferredPrompt.userChoice.then((choiceResult) => {
     if (choiceResult.outcome === "accepted") {
       console.log("PWA setup accepted");
-      installButton.hidden = true;
     } else {
       console.log("PWA setup rejected");
-      installButton.hidden = true;
     }
     installButton.disabled = false;
     deferredPrompt = null;
