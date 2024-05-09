@@ -491,16 +491,23 @@ const installButton = document.getElementById("install_button");
 
 // Отображаем уведомление при открытии страницы, если PWA еще не установлено
 window.addEventListener("load", () => {
-  if (!window.matchMedia('(display-mode: standalone)').matches && !window.navigator.standalone) {
-    showInstallPrompt();
+  if (
+    !window.matchMedia("(display-mode: standalone)").matches &&
+    !window.navigator.standalone
+  ) {
   }
 });
 
 window.addEventListener("beforeinstallprompt", (e) => {
   console.log("beforeinstallprompt fired");
-  e.preventDefault();
   deferredPrompt = e;
   showInstallButton();
+});
+
+// Обработчик установки PWA
+window.addEventListener("appinstalled", () => {
+  console.log("PWA installed successfully");
+  hideInstallButton();
 });
 
 // Функция отображения кнопки установки
@@ -509,27 +516,27 @@ function showInstallButton() {
   installButton.addEventListener("click", installApp);
 }
 
-// Функция отображения уведомления о возможности установки
-function showInstallPrompt() {
-  // Ваш код для отображения уведомления о возможности установки PWA
-}
-
 // Функция установки приложения
 function installApp() {
-  deferredPrompt.prompt();
-  installButton.disabled = true;
+  if (deferredPrompt) {
+    // Проверка, что deferredPrompt определен
+    deferredPrompt.prompt();
+    installButton.disabled = true;
 
-  // Ожидаем выбор пользователя
-  deferredPrompt.userChoice.then((choiceResult) => {
-    if (choiceResult.outcome === "accepted") {
-      console.log("PWA setup accepted");
-      hideInstallButton(); // Скрываем кнопку после успешной установки
-    } else {
-      console.log("PWA setup rejected");
-    }
-    installButton.disabled = false;
-    deferredPrompt = null;
-  });
+    // Ожидаем выбор пользователя
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("PWA setup accepted");
+        hideInstallButton(); // Скрываем кнопку после успешной установки
+      } else {
+        console.log("PWA setup rejected");
+      }
+      installButton.disabled = false;
+      deferredPrompt = null;
+    });
+  } else {
+    console.error("deferredPrompt is not defined"); // Выводим сообщение об ошибке, если deferredPrompt не определен
+  }
 }
 
 // Функция скрытия кнопки установки
@@ -538,7 +545,9 @@ function hideInstallButton() {
 }
 
 // Скрыть кнопку установки при повторном посещении PWA
-if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+if (
+  window.matchMedia("(display-mode: standalone)").matches ||
+  window.navigator.standalone
+) {
   hideInstallButton();
 }
-
