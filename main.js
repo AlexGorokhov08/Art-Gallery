@@ -541,7 +541,7 @@ if ("getInstalledRelatedApps" in navigator) {
     .then((relatedApps) => {
       const PWAisInstalled = relatedApps.length > 0;
       if (PWAisInstalled) {
-        hideInstallButton();
+        installButton.hidden = true;
       }
     })
     .catch((error) => {
