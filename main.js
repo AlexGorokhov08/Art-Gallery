@@ -484,3 +484,34 @@ document
       console.error("Failed to load translations:", error);
     }
   });
+
+// Обработчик события установки PWA
+let deferredPrompt; // Переменная для хранения объекта события beforeinstallprompt
+const installButton = document.getElementById("install_button");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  console.log("beforeinstallprompt fired");
+  e.preventDefault();
+  deferredPrompt = e;
+  installButton.hidden = false;
+  installButton.addEventListener("click", installApp);
+});
+
+// Функция установки приложения
+function installApp() {
+  deferredPrompt.prompt();
+  installButton.disabled = true;
+
+  // Ожидаем выбор пользователя
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === "accepted") {
+      console.log("PWA setup accepted");
+      installButton.hidden = true;
+    } else {
+      console.log("PWA setup rejected");
+      installButton.hidden = true;
+    }
+    installButton.disabled = false;
+    deferredPrompt = null;
+  });
+}

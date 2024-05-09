@@ -20,6 +20,11 @@
       type="module"
       src="main.js"
       defer></script>
+    <script>
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
     <title data-translation-key="title">Art Gallery</title>
     <link
       rel="apple-touch-icon"
@@ -146,6 +151,15 @@
             class="btn contacts-btn"
             data-translation-key="contacts">
             Contacts
+          </p>
+        </div>
+        <div
+          class="menu-container"
+          id="install_button">
+          <p
+            class="btn"
+            data-translation-key="install">
+            Install
           </p>
         </div>
       </div>

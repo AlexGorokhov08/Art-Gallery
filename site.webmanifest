@@ -2,7 +2,7 @@
   "name": "Art Gallery",
   "short_name": "Art Gallery",
   "start_url": "https://art-gallery-snowy.vercel.app/",
-  "id": "/",
+  "id": "https://art-gallery-snowy.vercel.app/",
   "icons": [
     {
       "src": "imgs/favicons/android-chrome-192x192.png?v=2",

@@ -88,6 +88,11 @@
   ],
   "portraits-pencil": [
     {
+      "id": 11,
+      "fullSizeSrc": "imgs/portraits/pencil/20240509_141350.jpg",
+      "lowQualitySrc": "imgs/portraits/pencil/lowsize/20240509_141350_lowSize.jpg"
+    },
+    {
       "id": 10,
       "fullSizeSrc": "imgs/portraits/pencil/20240330_101642.jpg",
       "lowQualitySrc": "imgs/portraits/pencil/lowsize/20240330_101642_lowSize.jpg"
