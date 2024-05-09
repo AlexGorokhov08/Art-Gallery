@@ -538,9 +538,12 @@ function installApp() {
 if ("getInstalledRelatedApps" in navigator) {
   (async () => {
     try {
+      console.log("Checking if PWA is installed...");
       const relatedApps = await navigator.getInstalledRelatedApps();
       const PWAisInstalled = relatedApps.length > 0;
+      console.log("PWA is installed:", PWAisInstalled);
       if (PWAisInstalled) {
+        console.log("Hiding install button...");
         hideInstallButton();
       }
     } catch (error) {
@@ -548,6 +551,7 @@ if ("getInstalledRelatedApps" in navigator) {
     }
   })();
 }
+
 
 // Функция скрытия кнопки установки
 function hideInstallButton() {
