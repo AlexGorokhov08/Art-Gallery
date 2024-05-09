@@ -16,6 +16,7 @@ const spoilerContentItems = document.querySelectorAll(".spoiler-content li");
 const switchInput = document.getElementById("slider");
 const contactsBtn = document.querySelector(".contacts-btn");
 const allPaintingsButton = document.querySelector(".all-btn");
+const installButton = document.getElementById("install_button");
 
 let fullImages = []; // Массив для хранения полноразмерных изображений
 let isDragging = false; // Флаг перетаскивания изображения
@@ -487,7 +488,6 @@ document
 
 // Обработчик события установки PWA
 let deferredPrompt; // Переменная для хранения объекта события beforeinstallprompt
-const installButton = document.getElementById("install_button");
 
 // Отображаем уведомление при открытии страницы, если PWA еще не установлено
 window.addEventListener("load", () => {
@@ -518,25 +518,35 @@ function showInstallButton() {
 
 // Функция установки приложения
 function installApp() {
-  if (deferredPrompt) {
-    // Проверка, что deferredPrompt определен
-    deferredPrompt.prompt();
-    installButton.disabled = true;
+  deferredPrompt.prompt();
+  installButton.disabled = true;
 
-    // Ожидаем выбор пользователя
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        console.log("PWA setup accepted");
-        hideInstallButton(); // Скрываем кнопку после успешной установки
-      } else {
-        console.log("PWA setup rejected");
+  // Ожидаем выбор пользователя
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === "accepted") {
+      console.log("PWA setup accepted");
+      hideInstallButton(); // Скрываем кнопку после успешной установки
+    } else {
+      console.log("PWA setup rejected");
+    }
+    installButton.disabled = false;
+    deferredPrompt = null;
+  });
+}
+
+// Проверка установлено ли PWA
+if ("getInstalledRelatedApps" in navigator) {
+  navigator
+    .getInstalledRelatedApps()
+    .then((relatedApps) => {
+      const PWAisInstalled = relatedApps.length > 0;
+      if (PWAisInstalled) {
+        hideInstallButton();
       }
-      installButton.disabled = false;
-      deferredPrompt = null;
+    })
+    .catch((error) => {
+      console.error("Error checking PWA installation:", error);
     });
-  } else {
-    console.error("deferredPrompt is not defined"); // Выводим сообщение об ошибке, если deferredPrompt не определен
-  }
 }
 
 // Функция скрытия кнопки установки

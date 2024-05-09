@@ -19,5 +19,11 @@
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "related_application": [
+    {
+      "platform": "webapp",
+      "url": "https://art-gallery-snowy.vercel.app/"
+    }
+  ]
 }
