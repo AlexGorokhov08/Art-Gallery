@@ -491,6 +491,9 @@ let deferredPrompt; // Переменная для хранения объект
 
 // Отображаем уведомление при открытии страницы, если PWA еще не установлено
 window.addEventListener("load", () => {
+  // Проверяем установлено ли PWA при каждой загрузке страницы
+  checkIfPWAInstalled();
+
   if (
     !window.matchMedia("(display-mode: standalone)").matches &&
     !window.navigator.standalone
@@ -537,8 +540,7 @@ function installApp() {
 // Проверка установлено ли PWA
 function checkIfPWAInstalled() {
   if ("getInstalledRelatedApps" in navigator) {
-    navigator
-      .getInstalledRelatedApps()
+    navigator.getInstalledRelatedApps()
       .then((relatedApps) => {
         const PWAisInstalled = relatedApps.length > 0;
         if (PWAisInstalled) {
@@ -550,9 +552,6 @@ function checkIfPWAInstalled() {
       });
   }
 }
-
-// Вызываем проверку установленности PWA
-checkIfPWAInstalled();
 
 // Функция скрытия кнопки установки
 function hideInstallButton() {
