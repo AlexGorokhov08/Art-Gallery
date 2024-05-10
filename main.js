@@ -487,61 +487,83 @@ document
   });
 
 // Обработчик события установки PWA
-//Проверяем локальное хранилище
-let pwaInstalled = localStorage.getItem("pwaInstalled") === "yes";
+// Проверяем установлено ли PWA сразу после загрузки страницы
+checkIfPWAInstalled();
 
-//Проверяем режим отображения standalone
-if (!pwaInstalled && window.matchMedia("(display-mode: standalone)").matches) {
-  localStorage.setItem("pwaInstalled", "yes");
-  pwaInstalled = true;
-}
+// Обработчик события установки PWA
+let deferredPrompt; // Переменная для хранения объекта события beforeinstallprompt
 
-//Проверяем, находится ли навигатор в standalone режиме
-if (!pwaInstalled && window.navigator.standalone === true) {
-  localStorage.setItem("pwaInstalled", "yes");
-  pwaInstalled = true;
-}
-
-// Обработчик события beforeinstallprompt
-let deferredPrompt = null;
-window.addEventListener("beforeinstallprompt", (event) => {
-  deferredPrompt = event;
-
-  // Показываем кнопку установки, если PWA еще не установлено
-  if (!pwaInstalled) {
-    showInstallButton();
+// Отображаем уведомление при открытии страницы, если PWA еще не установлено
+window.addEventListener("load", () => {
+  if (
+    !window.matchMedia("(display-mode: standalone)").matches &&
+    !window.navigator.standalone
+  ) {
   }
 });
 
-// Обработчик события appinstalled
-window.addEventListener("appinstalled", (event) => {
-  localStorage.setItem("pwaInstalled", "yes");
-  pwaInstalled = true;
+window.addEventListener("beforeinstallprompt", (e) => {
+  console.log("beforeinstallprompt fired");
+  deferredPrompt = e;
+  showInstallButton();
+});
+
+// Обработчик установки PWA
+window.addEventListener("appinstalled", () => {
+  console.log("PWA installed successfully");
   hideInstallButton();
 });
 
 // Функция отображения кнопки установки
 function showInstallButton() {
-  installButton.style.display = "inline-flex";
+  installButton.hidden = false;
   installButton.addEventListener("click", installApp);
+}
+
+// Функция установки приложения
+function installApp() {
+  deferredPrompt.prompt();
+  installButton.disabled = true;
+
+  // Ожидаем выбор пользователя
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === "accepted") {
+      console.log("PWA setup accepted");
+      hideInstallButton(); // Скрываем кнопку после успешной установки
+    } else {
+      console.log("PWA setup rejected");
+      installButton.disabled = false;
+    }
+    deferredPrompt = null;
+  });
+}
+
+// Проверка установлено ли PWA
+function checkIfPWAInstalled() {
+  if ("getInstalledRelatedApps" in navigator) {
+    navigator
+      .getInstalledRelatedApps()
+      .then((relatedApps) => {
+        const PWAisInstalled = relatedApps.length > 0;
+        if (PWAisInstalled) {
+          hideInstallButton();
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking PWA installation:", error);
+      });
+  }
 }
 
 // Функция скрытия кнопки установки
 function hideInstallButton() {
-  installButton.style.display = "none";
+  installButton.hidden = true;
 }
 
-// Функция установки приложения
-async function installApp() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    let outcome = await deferredPrompt.userChoice;
-
-    if (outcome === "accepted") {
-      console.log("PWA было успешно установлено.");
-    } else {
-      console.log("Установка PWA была отклонена пользователем.");
-    }
-    deferredPrompt = null;
-  }
+// Скрыть кнопку установки при повторном посещении PWA
+if (
+  window.matchMedia("(display-mode: standalone)").matches ||
+  window.navigator.standalone
+) {
+  hideInstallButton();
 }
