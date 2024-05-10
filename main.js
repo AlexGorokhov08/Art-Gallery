@@ -487,10 +487,6 @@ document
   });
 
 // Обработчик события установки PWA
-// Проверяем установлено ли PWA сразу после загрузки страницы
-checkIfPWAInstalled();
-
-// Обработчик события установки PWA
 let deferredPrompt; // Переменная для хранения объекта события beforeinstallprompt
 
 // Отображаем уведомление при открытии страницы, если PWA еще не установлено
@@ -554,6 +550,9 @@ function checkIfPWAInstalled() {
       });
   }
 }
+
+// Вызываем проверку установленности PWA
+checkIfPWAInstalled();
 
 // Функция скрытия кнопки установки
 function hideInstallButton() {
