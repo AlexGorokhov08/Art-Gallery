@@ -20,7 +20,7 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
-  "related_application": [
+  "related_applications": [
     {
       "platform": "webapp",
       "url": "https://art-gallery-snowy.vercel.app/site.webmanifest?v=2"
