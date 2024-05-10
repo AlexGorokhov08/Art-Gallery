@@ -489,6 +489,16 @@ document
 // Обработчик события установки PWA
 let deferredPrompt; // Переменная для хранения объекта события beforeinstallprompt
 
+// Проверка установлено ли PWA
+if ("getInstalledRelatedApps" in navigator) {
+  const relatedApps = await navigator.getInstalledRelatedApps();
+  const PWAisInstalled = relatedApps.length > 0;
+
+  if (PWAisInstalled) {
+    hideInstallButton();
+  }
+}
+
 // Отображаем уведомление при открытии страницы, если PWA еще не установлено
 window.addEventListener("load", () => {
   if (
@@ -533,26 +543,6 @@ function installApp() {
     deferredPrompt = null;
   });
 }
-
-// Проверка установлено ли PWA
-function checkIfPWAInstalled() {
-  if ("getInstalledRelatedApps" in navigator) {
-    navigator
-      .getInstalledRelatedApps()
-      .then((relatedApps) => {
-        const PWAisInstalled = relatedApps.length > 0;
-        if (PWAisInstalled) {
-          hideInstallButton();
-        }
-      })
-      .catch((error) => {
-        console.error("Error checking PWA installation:", error);
-      });
-  }
-}
-
-// Вызываем проверку установленности PWA
-checkIfPWAInstalled();
 
 // Функция скрытия кнопки установки
 function hideInstallButton() {
