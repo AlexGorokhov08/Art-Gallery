@@ -528,30 +528,31 @@ function installApp() {
       hideInstallButton(); // Скрываем кнопку после успешной установки
     } else {
       console.log("PWA setup rejected");
+      installButton.disabled = false;
     }
-    installButton.disabled = false;
     deferredPrompt = null;
   });
 }
 
 // Проверка установлено ли PWA
-if ("getInstalledRelatedApps" in navigator) {
-  (async () => {
-    try {
-      console.log("Checking if PWA is installed...");
-      const relatedApps = await navigator.getInstalledRelatedApps();
-      const PWAisInstalled = relatedApps.length > 0;
-      console.log("PWA is installed:", PWAisInstalled);
-      if (PWAisInstalled) {
-        console.log("Hiding install button...");
-        hideInstallButton();
-      }
-    } catch (error) {
-      console.error("Error checking PWA installation:", error);
-    }
-  })();
+function checkIfPWAInstalled() {
+  if ("getInstalledRelatedApps" in navigator) {
+    navigator
+      .getInstalledRelatedApps()
+      .then((relatedApps) => {
+        const PWAisInstalled = relatedApps.length > 0;
+        if (PWAisInstalled) {
+          hideInstallButton();
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking PWA installation:", error);
+      });
+  }
 }
 
+// Вызываем проверку установленности PWA
+checkIfPWAInstalled();
 
 // Функция скрытия кнопки установки
 function hideInstallButton() {
