@@ -380,6 +380,9 @@ function openFullImage(src) {
 
   // Добавляем запись в историю браузера для возможности использования кнопки "назад"
   history.pushState({ isFullImageOpen: true }, null, "#full-image");
+
+  // Вызываем функцию handlePinch для обработки масштабирования на сенсорных устройствах
+  handlePinch(imgElement);
 }
 
 // Функция для управления классом zoomed и начального масштабирования
