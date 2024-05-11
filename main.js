@@ -489,20 +489,6 @@ document
 // Обработчик события установки PWA
 let deferredPrompt; // Переменная для хранения объекта события beforeinstallprompt
 
-// Проверка установлено ли PWA
-function checkIfPWAInstalled() {
-  const isPWAInstalled = localStorage.getItem('isPWAInstalled') === 'true';
-  if (isPWAInstalled) {
-    hideInstallButton();
-  }
-}
-
-// Set flag in LocalStorage after PWA is installed
-window.addEventListener('appinstalled', () => {
-  localStorage.setItem('isPWAInstalled', 'true');
-  hideInstallButton();
-});
-
 // Отображаем уведомление при открытии страницы, если PWA еще не установлено
 window.addEventListener("load", () => {
   if (
@@ -514,7 +500,7 @@ window.addEventListener("load", () => {
 
 window.addEventListener("beforeinstallprompt", (e) => {
   console.log("beforeinstallprompt fired");
-  deferredPrompt = e;
+  // deferredPrompt = e;
   showInstallButton();
 });
 
@@ -547,6 +533,39 @@ function installApp() {
     deferredPrompt = null;
   });
 }
+
+// Проверка установлено ли PWA и установка куки
+function checkIfPWAInstalledAndSetCookie() {
+  if ("getInstalledRelatedApps" in navigator) {
+    navigator
+      .getInstalledRelatedApps()
+      .then((relatedApps) => {
+        const PWAisInstalled = relatedApps.length > 0;
+        if (PWAisInstalled) {
+          hideInstallButton();
+          // Установка куки, указывающей на то, что PWA установлено
+          document.cookie = "PWAInstalled=true; max-age=2592000"; // Кука действительна 30 дней
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking PWA installation:", error);
+      });
+  }
+}
+
+// Вызываем проверку установленности PWA и установку куки
+checkIfPWAInstalledAndSetCookie();
+
+// Проверка куки при загрузке страницы
+window.addEventListener("load", () => {
+  const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
+  const PWAInstalledCookie = cookies.find((cookie) =>
+    cookie.startsWith("PWAInstalled="),
+  );
+  if (PWAInstalledCookie) {
+    hideInstallButton();
+  }
+});
 
 // Функция скрытия кнопки установки
 function hideInstallButton() {
