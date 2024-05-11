@@ -404,10 +404,12 @@ function zoomFullImage(imgElement) {
     imgElement.style.transform = `translate(-${offsetX}px, -${offsetY}px) scale(${scale})`;
     imgElement.classList.add("zoomed");
   }
-
-  // Обработчики для масштабирования изображения на сенсорных устройствах
   let initialDistance = 0;
   let initialScale = 1;
+  let initialLeft = 0;
+  let initialTop = 0;
+  let minScale = 1;
+  let maxScale = 3;
 
   imgElement.addEventListener("touchstart", (e) => {
     const touches = e.touches;
@@ -418,6 +420,8 @@ function zoomFullImage(imgElement) {
       );
       initialScale =
         parseFloat(imgElement.style.transform.replace(/[^0-9.]/g, "")) || 1;
+      initialLeft = parseFloat(imgElement.style.left) || 0;
+      initialTop = parseFloat(imgElement.style.top) || 0;
     }
   });
 
@@ -429,13 +433,17 @@ function zoomFullImage(imgElement) {
         touches[0].clientY - touches[1].clientY,
       );
       const scale = (currentDistance / initialDistance) * initialScale;
-      imgElement.style.transform = `scale(${scale})`;
-    }
-  });
+      const offsetX =
+        window.innerWidth / 2 - (touches[0].clientX + touches[1].clientX) / 2;
+      const offsetY =
+        window.innerHeight / 2 - (touches[0].clientY + touches[1].clientY) / 2;
 
-  imgElement.addEventListener("touchend", () => {
-    initialDistance = 0;
-    initialScale = 1;
+      if (scale >= minScale && scale <= maxScale) {
+        imgElement.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        imgElement.style.left = `calc(50% + ${offsetX}px)`;
+        imgElement.style.top = `calc(50% + ${offsetY}px)`;
+      }
+    }
   });
 }
 
