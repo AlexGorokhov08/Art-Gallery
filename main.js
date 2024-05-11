@@ -490,14 +490,18 @@ document
 let deferredPrompt; // Переменная для хранения объекта события beforeinstallprompt
 
 // Проверка установлено ли PWA
-if ("getInstalledRelatedApps" in navigator) {
-  const relatedApps = await navigator.getInstalledRelatedApps();
-  const PWAisInstalled = relatedApps.length > 0;
-
-  if (PWAisInstalled) {
+function checkIfPWAInstalled() {
+  const isPWAInstalled = localStorage.getItem('isPWAInstalled') === 'true';
+  if (isPWAInstalled) {
     hideInstallButton();
   }
 }
+
+// Set flag in LocalStorage after PWA is installed
+window.addEventListener('appinstalled', () => {
+  localStorage.setItem('isPWAInstalled', 'true');
+  hideInstallButton();
+});
 
 // Отображаем уведомление при открытии страницы, если PWA еще не установлено
 window.addEventListener("load", () => {
