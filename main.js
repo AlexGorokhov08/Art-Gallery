@@ -378,6 +378,39 @@ function openFullImage(src) {
   fullImages.push(imgElement);
   gallery.appendChild(imgElement);
 
+  // Обработчики для масштабирования изображения на сенсорных устройствах
+  let initialDistance = 0;
+  let initialScale = 1;
+
+  imgElement.addEventListener("touchstart", (e) => {
+    const touches = e.touches;
+    if (touches.length === 2) {
+      initialDistance = Math.hypot(
+        touches[0].clientX - touches[1].clientX,
+        touches[0].clientY - touches[1].clientY,
+      );
+      initialScale =
+        parseFloat(imgElement.style.transform.replace(/[^0-9.]/g, "")) || 1;
+    }
+  });
+
+  imgElement.addEventListener("touchmove", (e) => {
+    const touches = e.touches;
+    if (touches.length === 2) {
+      const currentDistance = Math.hypot(
+        touches[0].clientX - touches[1].clientX,
+        touches[0].clientY - touches[1].clientY,
+      );
+      const scale = (currentDistance / initialDistance) * initialScale;
+      imgElement.style.transform = `scale(${scale})`;
+    }
+  });
+
+  imgElement.addEventListener("touchend", () => {
+    initialDistance = 0;
+    initialScale = 1;
+  });
+
   // Добавляем запись в историю браузера для возможности использования кнопки "назад"
   history.pushState({ isFullImageOpen: true }, null, "#full-image");
 }
