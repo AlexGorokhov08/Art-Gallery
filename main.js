@@ -378,6 +378,33 @@ function openFullImage(src) {
   fullImages.push(imgElement);
   gallery.appendChild(imgElement);
 
+  // Добавляем запись в историю браузера для возможности использования кнопки "назад"
+  history.pushState({ isFullImageOpen: true }, null, "#full-image");
+}
+
+// Функция увеличения/уменьшения полноразмерного изображения
+function zoomFullImage(imgElement) {
+  if (imgElement.classList.contains("zoomed")) {
+    imgElement.style.cursor = "zoom-in";
+    imgElement.style.transition =
+      "transform 0.3s ease-in-out, top 0.3s ease-in-out, left 0.3s ease-in-out";
+    imgElement.style.transform = "translate(-50%, -50%) scale(1)";
+    imgElement.style.top = "50%";
+    imgElement.style.left = "50%";
+    imgElement.classList.remove("zoomed");
+  } else {
+    imgElement.style.cursor = "move";
+    const rect = imgElement.getBoundingClientRect();
+    const offsetX = window.innerWidth / 2 - rect.left;
+    const offsetY = window.innerHeight / 2 - rect.top;
+    const scale = 3;
+
+    imgElement.style.transition = "transform 0.3s ease-in-out";
+    imgElement.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+    imgElement.style.transform = `translate(-${offsetX}px, -${offsetY}px) scale(${scale})`;
+    imgElement.classList.add("zoomed");
+  }
+
   // Обработчики для масштабирования изображения на сенсорных устройствах
   let initialDistance = 0;
   let initialScale = 1;
@@ -410,33 +437,6 @@ function openFullImage(src) {
     initialDistance = 0;
     initialScale = 1;
   });
-
-  // Добавляем запись в историю браузера для возможности использования кнопки "назад"
-  history.pushState({ isFullImageOpen: true }, null, "#full-image");
-}
-
-// Функция увеличения/уменьшения полноразмерного изображения
-function zoomFullImage(imgElement) {
-  if (imgElement.classList.contains("zoomed")) {
-    imgElement.style.cursor = "zoom-in";
-    imgElement.style.transition =
-      "transform 0.3s ease-in-out, top 0.3s ease-in-out, left 0.3s ease-in-out";
-    imgElement.style.transform = "translate(-50%, -50%) scale(1)";
-    imgElement.style.top = "50%";
-    imgElement.style.left = "50%";
-    imgElement.classList.remove("zoomed");
-  } else {
-    imgElement.style.cursor = "move";
-    const rect = imgElement.getBoundingClientRect();
-    const offsetX = window.innerWidth / 2 - rect.left;
-    const offsetY = window.innerHeight / 2 - rect.top;
-    const scale = 3;
-
-    imgElement.style.transition = "transform 0.3s ease-in-out";
-    imgElement.style.transformOrigin = `${offsetX}px ${offsetY}px`;
-    imgElement.style.transform = `translate(-${offsetX}px, -${offsetY}px) scale(${scale})`;
-    imgElement.classList.add("zoomed");
-  }
 }
 
 // Функция для закрытия полноразмерного изображения
