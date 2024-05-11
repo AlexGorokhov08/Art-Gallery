@@ -503,7 +503,7 @@ window.addEventListener("load", () => {
 
 window.addEventListener("beforeinstallprompt", (e) => {
   console.log("beforeinstallprompt fired");
-  // deferredPrompt = e;
+  deferredPrompt = e;
   showInstallButton();
 });
 
