@@ -380,12 +380,9 @@ function openFullImage(src) {
 
   // Добавляем запись в историю браузера для возможности использования кнопки "назад"
   history.pushState({ isFullImageOpen: true }, null, "#full-image");
-
-  // Вызываем функцию handlePinch для обработки масштабирования на сенсорных устройствах
-  handlePinch(imgElement);
 }
 
-// Функция для управления классом zoomed и начального масштабирования
+// Функция увеличения/уменьшения полноразмерного изображения
 function zoomFullImage(imgElement) {
   if (imgElement.classList.contains("zoomed")) {
     imgElement.style.cursor = "zoom-in";
@@ -407,50 +404,6 @@ function zoomFullImage(imgElement) {
     imgElement.style.transform = `translate(-${offsetX}px, -${offsetY}px) scale(${scale})`;
     imgElement.classList.add("zoomed");
   }
-}
-
-// Функция для обработки событий масштабирования на сенсорных устройствах
-function handlePinch(imgElement) {
-  let initialDistance = 0;
-  let initialScale = 1;
-  let initialLeft = 0;
-  let initialTop = 0;
-  let minScale = 1;
-  let maxScale = 3;
-
-  imgElement.addEventListener("touchstart", (e) => {
-    const touches = e.touches;
-    if (touches.length === 2) {
-      initialDistance = Math.hypot(
-        touches[0].clientX - touches[1].clientX,
-        touches[0].clientY - touches[1].clientY,
-      );
-      initialScale =
-        parseFloat(imgElement.style.transform.replace(/[^0-9.]/g, "")) || 1;
-      const rect = imgElement.getBoundingClientRect();
-      initialLeft = rect.left + imgElement.offsetWidth / 2;
-      initialTop = rect.top + imgElement.offsetHeight / 2;
-    }
-  });
-
-  imgElement.addEventListener("touchmove", (e) => {
-    const touches = e.touches;
-    if (touches.length === 2) {
-      const currentDistance = Math.hypot(
-        touches[0].clientX - touches[1].clientX,
-        touches[0].clientY - touches[1].clientY,
-      );
-      const scale = (currentDistance / initialDistance) * initialScale;
-      const offsetX = window.innerWidth / 2 - initialLeft;
-      const offsetY = window.innerHeight / 2 - initialTop;
-
-      if (scale >= minScale && scale <= maxScale) {
-        imgElement.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        imgElement.style.left = `calc(50% + ${offsetX}px)`;
-        imgElement.style.top = `calc(50% + ${offsetY}px)`;
-      }
-    }
-  });
 }
 
 // Функция для закрытия полноразмерного изображения
