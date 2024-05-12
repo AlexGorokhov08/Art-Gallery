@@ -1,6 +1,11 @@
 {
   "portraits-watercolor": [
     {
+      "id": 18,
+      "fullSizeSrc": "imgs/portraits/watercolor/20240512_154605.jpg",
+      "lowQualitySrc": "imgs/portraits/watercolor/lowsize/20240512_154605_lowSize.jpg"
+    },
+    {
       "id": 17,
       "fullSizeSrc": "imgs/portraits/watercolor/20240416_144003.jpg",
       "lowQualitySrc": "imgs/portraits/watercolor/lowsize/20240416_144003_lowSize.jpg"

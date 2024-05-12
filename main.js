@@ -570,42 +570,45 @@ if (
 
 const imgElement = document.createElement("img");
 imgElement.classList.add("full-image");
-imgElement.style.cursor = "zoom-in";
 
-// Обработчик начала жеста pinch
-function handlePinchStart(e) {
-  if (e.touches.length >= 2) {
-    const touch1 = e.touches[0];
-    const touch2 = e.touches[1];
-    initialPinchDistance = Math.hypot(
-      touch2.clientX - touch1.clientX,
-      touch2.clientY - touch1.clientY,
-    );
-    initialScale =
-      parseFloat(imgElement.style.transform.replace(/[^0-9.]/g, "")) || 1;
-  }
+let initialDistance = 0;
+let currentDistance = 0;
+let scaleFactor = 1;
+let isPinching = false;
+
+// Обработчик события начала жеста разведения
+function handlePinchStart(event) {
+  isPinching = true;
+  initialDistance = calculateDistance(event);
 }
 
-// Обработчик движения при жесте pinch
-function handlePinchMove(e) {
-  if (e.touches.length >= 2) {
-    const touch1 = e.touches[0];
-    const touch2 = e.touches[1];
-    const currentPinchDistance = Math.hypot(
-      touch2.clientX - touch1.clientX,
-      touch2.clientY - touch1.clientY,
-    );
-    const scale = (currentPinchDistance / initialPinchDistance) * initialScale;
-    imgElement.style.transform = `scale(${scale})`;
-  }
+// Обработчик события изменения жеста разведения
+function handlePinchMove(event) {
+  if (!isPinching) return;
+
+  currentDistance = calculateDistance(event);
+  let delta = currentDistance - initialDistance;
+
+  // Изменение масштаба изображения
+  scaleFactor = 1 + delta * 0.1;
+  imgElement.style.transform = `scale(${scaleFactor})`;
 }
 
-// Обработчик завершения жеста pinch
-function handlePinchEnd(e) {
-  initialPinchDistance = 0;
+// Обработчик события окончания жеста разведения
+function handlePinchEnd() {
+  isPinching = false;
 }
 
-// Добавляем обработчики событий
+// Функция для расчета расстояния между двумя точками касания
+function calculateDistance(event) {
+  const touch1 = event.touches[0];
+  const touch2 = event.touches[1];
+  const dx = touch1.clientX - touch2.clientX;
+  const dy = touch1.clientY - touch2.clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Добавление обработчиков событий для жестов разведения и сведения
 imgElement.addEventListener("touchstart", handlePinchStart);
 imgElement.addEventListener("touchmove", handlePinchMove);
 imgElement.addEventListener("touchend", handlePinchEnd);
