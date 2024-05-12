@@ -267,7 +267,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Обработчик события popstate для закрытия полноразмерного изображения при нажатии кнопки назад
 window.addEventListener("popstate", function (event) {
-  if (window.location.hash !== "#full-image") {
+  const fullImage = document.querySelector(".full-image");
+  if (fullImage) {
     closeFullImages();
   }
 });
@@ -566,3 +567,45 @@ if (
 ) {
   hideInstallButton();
 }
+
+const imgElement = document.createElement("img");
+imgElement.classList.add("full-image");
+imgElement.style.cursor = "zoom-in";
+
+// Обработчик начала жеста pinch
+function handlePinchStart(e) {
+  if (e.touches.length >= 2) {
+    const touch1 = e.touches[0];
+    const touch2 = e.touches[1];
+    initialPinchDistance = Math.hypot(
+      touch2.clientX - touch1.clientX,
+      touch2.clientY - touch1.clientY,
+    );
+    initialScale =
+      parseFloat(imgElement.style.transform.replace(/[^0-9.]/g, "")) || 1;
+  }
+}
+
+// Обработчик движения при жесте pinch
+function handlePinchMove(e) {
+  if (e.touches.length >= 2) {
+    const touch1 = e.touches[0];
+    const touch2 = e.touches[1];
+    const currentPinchDistance = Math.hypot(
+      touch2.clientX - touch1.clientX,
+      touch2.clientY - touch1.clientY,
+    );
+    const scale = (currentPinchDistance / initialPinchDistance) * initialScale;
+    imgElement.style.transform = `scale(${scale})`;
+  }
+}
+
+// Обработчик завершения жеста pinch
+function handlePinchEnd(e) {
+  initialPinchDistance = 0;
+}
+
+// Добавляем обработчики событий
+imgElement.addEventListener("touchstart", handlePinchStart);
+imgElement.addEventListener("touchmove", handlePinchMove);
+imgElement.addEventListener("touchend", handlePinchEnd);
