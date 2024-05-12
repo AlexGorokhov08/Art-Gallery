@@ -24,7 +24,11 @@ let startX = 0; // Начальная позиция X при перетаски
 let startY = 0; // Начальная позиция Y при перетаскивании изображения
 let startOffsetX = 0; // Начальное смещение по X при перетаскивании изображения
 let startOffsetY = 0; // Начальное смещение по Y при перетаскивании изображения
-let lastTouchStart = 0; // Время последнего касания для мобильных устройств
+let lastTouchStart = 0;
+let initialDistance = 0;
+let currentDistance = 0;
+let scaleFactor = 1;
+let isPinching = false;
 
 // Функция для активации выбранной темы
 function activateTheme(themeClass, bodyColor, stringColor) {
@@ -265,14 +269,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Обработчик события popstate для закрытия полноразмерного изображения при нажатии кнопки назад
-window.addEventListener("popstate", function (event) {
-  const fullImage = document.querySelector(".full-image");
-  if (fullImage) {
-    closeFullImages();
-  }
-});
-
 // Функция для открытия полноразмерного изображения
 function openFullImage(src) {
   // Закрываем все открытые изображения перед открытием нового
@@ -289,6 +285,18 @@ function openFullImage(src) {
   imgElement.src = src;
   imgElement.classList.add("full-image");
   imgElement.style.cursor = "zoom-in";
+
+  imgElement.addEventListener("touchmove", (e) => {
+    if (!isDragging && imgElement.classList.contains("zoomed")) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const offsetX = touch.clientX - startX;
+      const offsetY = touch.clientY - startY;
+
+      imgElement.style.left = startOffsetX + offsetX + "px";
+      imgElement.style.top = startOffsetY + offsetY + "px";
+    }
+  });
 
   // Обработчик двойного клика для увеличения/уменьшения изображения
   imgElement.addEventListener("dblclick", () => {
@@ -417,14 +425,46 @@ function closeFullImages() {
   bodyOverlay.classList.remove("darken-active"); // Убираем класс для затемнения оверлея
   bodyOverlay.style.backgroundColor = ""; // Убираем цвет для оверлея
   close.removeEventListener("click", closeFullImages); // Удаляем обработчик клика по кнопке закрытия
-  history.pushState({}, null, window.location.pathname); // Обновляем историю браузера
+  history.back(); // Обновляем историю браузера
 }
 
-// Функция для обновления обработчиков касаний для мобильных устройств
-function updateTouchListeners() {
-  document.removeEventListener("touchstart", () => {}); // Удаляем старый обработчик touchstart
-  document.removeEventListener("touchmove", () => {}); // Удаляем старый обработчик touchmove
+// Обработчик события начала жеста разведения
+function handlePinchStart(event) {
+  isPinching = true;
+  initialDistance = calculateDistance(event);
 }
+
+// Обработчик события изменения жеста разведения
+function handlePinchMove(event, imgElement) {
+  if (!isPinching || !imgElement) return;
+
+  const currentDistance = calculateDistance(event);
+  const delta = currentDistance - initialDistance;
+
+  // Изменение масштаба изображения
+  scaleFactor = 1 + delta * 0.1; // Настройте коэффициент масштабирования по вашему усмотрению
+  imgElement.style.transform = "translate(-50%, -50%)`scale(${scaleFactor})`";
+}
+
+// Обработчик события окончания жеста разведения
+function handlePinchEnd() {
+  isPinching = false;
+}
+
+// Функция для расчета расстояния между двумя точками касания
+function calculateDistance(event) {
+  if (event.touches.length < 2) return 0; // Добавляем проверку на наличие касаний
+  const touch1 = event.touches[0];
+  const touch2 = event.touches[1];
+  const dx = touch1.clientX - touch2.clientX;
+  const dy = touch1.clientY - touch2.clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Добавление обработчиков событий для жестов разведения и сведения
+document.addEventListener("touchstart", handlePinchStart);
+document.addEventListener("touchmove", handlePinchMove);
+document.addEventListener("touchend", handlePinchEnd);
 
 // Функция для загрузки переводов из JSON файла
 async function loadTranslations(language) {
@@ -567,48 +607,3 @@ if (
 ) {
   hideInstallButton();
 }
-
-const imgElement = document.createElement("img");
-imgElement.classList.add("full-image");
-
-let initialDistance = 0;
-let currentDistance = 0;
-let scaleFactor = 1;
-let isPinching = false;
-
-// Обработчик события начала жеста разведения
-function handlePinchStart(event) {
-  isPinching = true;
-  initialDistance = calculateDistance(event);
-}
-
-// Обработчик события изменения жеста разведения
-function handlePinchMove(event) {
-  if (!isPinching) return;
-
-  currentDistance = calculateDistance(event);
-  let delta = currentDistance - initialDistance;
-
-  // Изменение масштаба изображения
-  scaleFactor = 1 + delta * 0.1;
-  imgElement.style.transform = `scale(${scaleFactor})`;
-}
-
-// Обработчик события окончания жеста разведения
-function handlePinchEnd() {
-  isPinching = false;
-}
-
-// Функция для расчета расстояния между двумя точками касания
-function calculateDistance(event) {
-  const touch1 = event.touches[0];
-  const touch2 = event.touches[1];
-  const dx = touch1.clientX - touch2.clientX;
-  const dy = touch1.clientY - touch2.clientY;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
-// Добавление обработчиков событий для жестов разведения и сведения
-imgElement.addEventListener("touchstart", handlePinchStart);
-imgElement.addEventListener("touchmove", handlePinchMove);
-imgElement.addEventListener("touchend", handlePinchEnd);

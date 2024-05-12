@@ -435,6 +435,7 @@ input:checked + .slider:before {
 }
 
 .close {
+  font-family: "Neucha", sans-serif;
   cursor: pointer;
   display: none;
   position: fixed;
