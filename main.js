@@ -327,11 +327,9 @@ function openFullImage(src) {
   });
 
   imgElement.addEventListener("touchmove", (e) => {
-    e.preventDefault();
-
-    if (!imgElement.classList.contains("zoomed")) {
-      return;
-    }
+    if (!isDragging && imgElement.classList.contains("zoomed")) {
+      handlePinchMove(e, imgElement);
+    }  
 
     const touch = e.touches[0];
     const offsetX = touch.clientX - startX;
