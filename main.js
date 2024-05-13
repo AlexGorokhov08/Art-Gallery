@@ -478,6 +478,13 @@ function handlePinchMove(event, imgElement) {
   const maxScale = 3; // Максимальный масштаб, который задан в CSS
   if (newScale < minScale || newScale > maxScale) return;
 
+  // Находим новый центр пинча
+  const rect = imgElement.getBoundingClientRect();
+  pinchCenterX =
+    (event.touches[0].clientX + event.touches[1].clientX) / 2 - rect.left;
+  pinchCenterY =
+    (event.touches[0].clientY + event.touches[1].clientY) / 2 - rect.top;
+
   // Рассчитываем смещение для компенсации начального сдвига при увеличении
   const deltaX = (pinchCenterX - startX) * (1 - scaleFactor);
   const deltaY = (pinchCenterY - startY) * (1 - scaleFactor);
@@ -488,16 +495,9 @@ function handlePinchMove(event, imgElement) {
   // Применяем изменения стилей
   imgElement.style.transition = "none";
   imgElement.style.transformOrigin = `${pinchCenterX}px ${pinchCenterY}px`;
-}
 
-// Функция для расчета расстояния между двумя точками касания
-function calculateDistance(event) {
-  if (event.touches.length < 2) return 0; // Добавляем проверку на наличие касаний
-  const touch1 = event.touches[0];
-  const touch2 = event.touches[1];
-  const dx = touch1.clientX - touch2.clientX;
-  const dy = touch1.clientY - touch2.clientY;
-  return Math.sqrt(dx * dx + dy * dy);
+  // Обновляем начальное расстояние для следующего шага
+  initialDistance = currentDistance;
 }
 
 // Добавление обработчиков событий для жестов разведения и сведения
