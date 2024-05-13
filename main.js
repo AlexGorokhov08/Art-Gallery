@@ -329,7 +329,7 @@ function openFullImage(src) {
   imgElement.addEventListener("touchmove", (e) => {
     if (!isDragging && imgElement.classList.contains("zoomed")) {
       handlePinchMove(e, imgElement);
-    }  
+    }
 
     const touch = e.touches[0];
     const offsetX = touch.clientX - startX;
@@ -430,7 +430,7 @@ function closeFullImages() {
   bodyOverlay.classList.remove("darken-active"); // Убираем класс для затемнения оверлея
   bodyOverlay.style.backgroundColor = ""; // Убираем цвет для оверлея
   close.removeEventListener("click", closeFullImages); // Удаляем обработчик клика по кнопке закрытия
-  history.back(); // Обновляем историю браузера
+  history.pushState({}, null, window.location.pathname); // Обновляем историю браузера
 }
 
 // Обработчик события начала жеста разведения
@@ -447,8 +447,24 @@ function handlePinchMove(event, imgElement) {
   const delta = currentDistance - initialDistance;
 
   // Изменение масштаба изображения
-  scaleFactor = 1 + delta * 0.1; // Настройте коэффициент масштабирования по вашему усмотрению
-  imgElement.style.transform = "translate(-50%, -50%)`scale(${scaleFactor})`";
+  scaleFactor = 1 + delta * 0.01; // Меньший коэффициент масштабирования
+
+  // Получаем центр жеста pinch
+  const centerX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
+  const centerY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
+
+  // Получаем текущие размеры изображения и его позицию
+  const rect = imgElement.getBoundingClientRect();
+  const imgCenterX = rect.left + rect.width / 2;
+  const imgCenterY = rect.top + rect.height / 2;
+
+  // Вычисляем смещение центра изображения относительно центра жеста pinch
+  const offsetX = imgCenterX - centerX;
+  const offsetY = imgCenterY - centerY;
+
+  // Применяем масштабирование и смещение
+  imgElement.style.transformOrigin = `${centerX}px ${centerY}px`;
+  imgElement.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scaleFactor})`;
 }
 
 // Обработчик события окончания жеста разведения
