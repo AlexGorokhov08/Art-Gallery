@@ -266,16 +266,13 @@ spoilerContentItems.forEach((item) => {
 // Обработчик клика по оверлею
 document.addEventListener("DOMContentLoaded", function () {
   bodyOverlay.addEventListener("click", () => {
-    closeFullImages(); // Закрываем полноразмерное изображение
+    closeFullImages();
+    history.back(); // Закрываем полноразмерное изображение
   });
 });
 
 // Функция для открытия полноразмерного изображения
 function openFullImage(src) {
-  if (!isFullImageStateAdded) {
-    history.pushState({ isFullImageOpen: true }, null, "#full-image");
-    isFullImageStateAdded = true;
-  }
   // Закрываем все открытые изображения перед открытием нового
   closeFullImages();
   // Отключаем прокрутку страницы и отображаем загрузчик
@@ -373,10 +370,11 @@ function openFullImage(src) {
     isDragging = false;
   });
 
-  // Обработчик закрытия полноразмерного изображения
+  // Обработчик закрытия на крестик полноразмерного изображения
   close.addEventListener("click", () => {
     imgElement.classList.remove("scale");
     closeFullImages();
+    history.back();
   });
 
   // Обработчик загрузки изображения
@@ -389,6 +387,11 @@ function openFullImage(src) {
   // Добавляем изображение в массив полноразмерных изображений и в галерею
   fullImages.push(imgElement);
   gallery.appendChild(imgElement);
+
+  if (!isFullImageStateAdded) {
+    history.pushState({ isFullImageOpen: true }, null, "#full-image");
+    isFullImageStateAdded = true;
+  }
 }
 
 // Обработчик события popstate для закрытия полноразмерного изображения при нажатии кнопки назад
@@ -424,7 +427,6 @@ function zoomFullImage(imgElement) {
     imgElement.classList.add("zoomed");
   }
 }
-
 
 // Функция для закрытия полноразмерного изображения
 function closeFullImages() {
@@ -487,10 +489,6 @@ function handlePinchMove(event, imgElement) {
   imgElement.style.transition = "none";
   imgElement.style.transformOrigin = `${pinchCenterX}px ${pinchCenterY}px`;
 }
-// Обработчик события окончания жеста разведения
-function handlePinchEnd() {
-  isPinching = false;
-}
 
 // Функция для расчета расстояния между двумя точками касания
 function calculateDistance(event) {
@@ -505,7 +503,7 @@ function calculateDistance(event) {
 // Добавление обработчиков событий для жестов разведения и сведения
 document.addEventListener("touchstart", handlePinchStart);
 document.addEventListener("touchmove", handlePinchMove);
-document.addEventListener("touchend", handlePinchEnd);
+// document.addEventListener("touchend", handlePinchEnd);
 
 // Функция для загрузки переводов из JSON файла
 async function loadTranslations(language) {
