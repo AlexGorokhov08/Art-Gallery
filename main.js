@@ -391,6 +391,13 @@ function openFullImage(src) {
   history.pushState({ isFullImageOpen: true }, null, "#full-image");
 }
 
+// Обработчик события popstate для закрытия полноразмерного изображения при нажатии кнопки назад
+window.addEventListener("popstate", function (event) {
+  if (window.location.hash !== "#full-image") {
+    closeFullImages();
+  }
+});
+
 // Функция увеличения/уменьшения полноразмерного изображения
 function zoomFullImage(imgElement) {
   if (imgElement.classList.contains("zoomed")) {
