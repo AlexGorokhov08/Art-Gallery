@@ -29,6 +29,7 @@ let initialDistance = 0;
 let currentDistance = 0;
 let scaleFactor = 1;
 let isPinching = false;
+let isFullImageStateAdded = false;
 
 // Функция для активации выбранной темы
 function activateTheme(themeClass, bodyColor, stringColor) {
@@ -271,6 +272,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Функция для открытия полноразмерного изображения
 function openFullImage(src) {
+  if (!isFullImageStateAdded) {
+    history.pushState({ isFullImageOpen: true }, null, "#full-image");
+    isFullImageStateAdded = true;
+  }
   // Закрываем все открытые изображения перед открытием нового
   closeFullImages();
   // Отключаем прокрутку страницы и отображаем загрузчик
@@ -384,9 +389,6 @@ function openFullImage(src) {
   // Добавляем изображение в массив полноразмерных изображений и в галерею
   fullImages.push(imgElement);
   gallery.appendChild(imgElement);
-
-  // Добавляем запись в историю браузера для возможности использования кнопки "назад"
-  history.pushState({ isFullImageOpen: true }, null, "#full-image");
 }
 
 // Обработчик события popstate для закрытия полноразмерного изображения при нажатии кнопки назад
@@ -398,21 +400,22 @@ window.addEventListener("popstate", function (event) {
   }
 });
 
-// Функция увеличения/уменьшения полноразмерного изображения
+// Функция для увеличения/уменьшения полноразмерного изображения
 function zoomFullImage(imgElement) {
+  const rect = imgElement.getBoundingClientRect();
+  const offsetX = window.innerWidth / 2 - rect.left;
+  const offsetY = window.innerHeight / 2 - rect.top;
+
   if (imgElement.classList.contains("zoomed")) {
     imgElement.style.cursor = "zoom-in";
     imgElement.style.transition =
       "transform 0.3s ease-in-out, top 0.3s ease-in-out, left 0.3s ease-in-out";
-    imgElement.style.transform = "translate(-50%, -50%) scale(1)";
+    imgElement.style.transform = `translate(-50%, -50%) scale(1)`;
     imgElement.style.top = "50%";
     imgElement.style.left = "50%";
     imgElement.classList.remove("zoomed");
   } else {
     imgElement.style.cursor = "move";
-    const rect = imgElement.getBoundingClientRect();
-    const offsetX = window.innerWidth / 2 - rect.left;
-    const offsetY = window.innerHeight / 2 - rect.top;
     const scale = 3;
 
     imgElement.style.transition = "transform 0.3s ease-in-out";
@@ -422,6 +425,7 @@ function zoomFullImage(imgElement) {
   }
 }
 
+
 // Функция для закрытия полноразмерного изображения
 function closeFullImages() {
   body.style.overflow = ""; // Восстанавливаем прокрутку страницы
@@ -430,9 +434,10 @@ function closeFullImages() {
   bodyOverlay.classList.remove("darken-active"); // Убираем класс для затемнения оверлея
   bodyOverlay.style.backgroundColor = ""; // Убираем цвет для оверлея
   close.removeEventListener("click", closeFullImages); // Удаляем обработчик клика по кнопке закрытия
-  history.back(); // Перед удалением изображений вызываем history.back()
   fullImages.forEach((img) => img.remove()); // Удаляем все полноразмерные изображения из DOM
   fullImages = []; // Очищаем массив полноразмерных изображений
+  history.replaceState({}, null, window.location.pathname);
+  isFullImageStateAdded = false;
 }
 
 // Обработчик события начала жеста разведения
@@ -477,8 +482,11 @@ function handlePinchMove(event, imgElement) {
 
   // Применяем новый масштаб и смещение
   imgElement.style.transform = `translate(-50%, -50%) scale(${newScale}) translate(${deltaX}px, ${deltaY}px)`;
-}
 
+  // Применяем изменения стилей
+  imgElement.style.transition = "none";
+  imgElement.style.transformOrigin = `${pinchCenterX}px ${pinchCenterY}px`;
+}
 // Обработчик события окончания жеста разведения
 function handlePinchEnd() {
   isPinching = false;
