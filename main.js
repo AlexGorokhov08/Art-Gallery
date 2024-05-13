@@ -447,24 +447,19 @@ function handlePinchMove(event, imgElement) {
   const delta = currentDistance - initialDistance;
 
   // Изменение масштаба изображения
-  scaleFactor = 1 + delta * 0.01; // Меньший коэффициент масштабирования
+  scaleFactor = 1 + delta * 0.01; // Уменьшаем коэффициент масштабирования
 
-  // Получаем центр жеста pinch
-  const centerX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
-  const centerY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
+  // Учитываем текущий масштаб изображения
+  const currentScale = parseFloat(imgElement.style.transform.split(" ")[1]);
+  const newScale = currentScale * scaleFactor;
 
-  // Получаем текущие размеры изображения и его позицию
-  const rect = imgElement.getBoundingClientRect();
-  const imgCenterX = rect.left + rect.width / 2;
-  const imgCenterY = rect.top + rect.height / 2;
+  // Ограничиваем масштабирование, чтобы изображение не сжималось слишком маленьким
+  const minScale = 0.5;
+  const maxScale = 3;
+  if (newScale < minScale || newScale > maxScale) return;
 
-  // Вычисляем смещение центра изображения относительно центра жеста pinch
-  const offsetX = imgCenterX - centerX;
-  const offsetY = imgCenterY - centerY;
-
-  // Применяем масштабирование и смещение
-  imgElement.style.transformOrigin = `${centerX}px ${centerY}px`;
-  imgElement.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scaleFactor})`;
+  // Применяем новый масштаб
+  imgElement.style.transform = `translate(-50%, -50%) scale(${newScale})`;
 }
 
 // Обработчик события окончания жеста разведения
