@@ -391,7 +391,9 @@ function openFullImage(src) {
 
 // Обработчик события popstate для закрытия полноразмерного изображения при нажатии кнопки назад
 window.addEventListener("popstate", function (event) {
-  if (window.location.hash !== "#full-image") {
+  if (event.state && event.state.isFullImageOpen) {
+    openFullImage();
+  } else {
     closeFullImages();
   }
 });
@@ -430,7 +432,7 @@ function closeFullImages() {
   bodyOverlay.classList.remove("darken-active"); // Убираем класс для затемнения оверлея
   bodyOverlay.style.backgroundColor = ""; // Убираем цвет для оверлея
   close.removeEventListener("click", closeFullImages); // Удаляем обработчик клика по кнопке закрытия
-  history.pushState({}, null, window.location.pathname); // Обновляем историю браузера
+  history.back();
 }
 
 // Обработчик события начала жеста разведения
@@ -439,6 +441,7 @@ function handlePinchStart(event) {
   initialDistance = calculateDistance(event);
 }
 
+// Обработчик события изменения жеста разведения
 // Обработчик события изменения жеста разведения
 function handlePinchMove(event, imgElement) {
   if (!isPinching || !imgElement) return;
@@ -450,16 +453,19 @@ function handlePinchMove(event, imgElement) {
   scaleFactor = 1 + delta * 0.01; // Уменьшаем коэффициент масштабирования
 
   // Учитываем текущий масштаб изображения
-  const currentScale = parseFloat(imgElement.style.transform.split(" ")[1]);
+  const currentTransform = window
+    .getComputedStyle(imgElement)
+    .getPropertyValue("transform");
+  const currentScale = parseFloat(currentTransform.split(" ")[3]); // Получаем масштаб из CSS трансформации
   const newScale = currentScale * scaleFactor;
 
   // Ограничиваем масштабирование, чтобы изображение не сжималось слишком маленьким
-  const minScale = 0.5;
-  const maxScale = 3;
+  const minScale = 0.1; // Минимальный масштаб, который задан в CSS
+  const maxScale = 3; // Максимальный масштаб, который задан в CSS
   if (newScale < minScale || newScale > maxScale) return;
 
   // Применяем новый масштаб
-  imgElement.style.transform = `translate(-50%, -50%) scale(${newScale})`;
+  imgElement.style.transform = `scale(${newScale})`;
 }
 
 // Обработчик события окончания жеста разведения
