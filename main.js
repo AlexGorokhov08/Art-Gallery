@@ -30,6 +30,8 @@ let currentDistance = 0;
 let scaleFactor = 1;
 let isPinching = false;
 let isFullImageStateAdded = false;
+let imgCenterX = 0;
+let imgCenterY = 0;
 
 // Функция для активации выбранной темы
 function activateTheme(themeClass, bodyColor, stringColor) {
@@ -409,12 +411,14 @@ function handlePinchStart(event, imgElement) {
   isPinching = true;
   initialDistance = calculateDistance(event);
 
-  // Находим центр жеста пинча
+  // Сохраняем текущие координаты центра изображения
   const rect = imgElement.getBoundingClientRect();
-  pinchCenterX =
-    (event.touches[0].clientX + event.touches[1].clientX) / 2 - rect.left;
-  pinchCenterY =
-    (event.touches[0].clientY + event.touches[1].clientY) / 2 - rect.top;
+  imgCenterX = rect.left + rect.width / 2;
+  imgCenterY = rect.top + rect.height / 2;
+
+  // Находим центр жеста пинча
+  pinchCenterX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
+  pinchCenterY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
 }
 
 // Обработчик события изменения жеста разведения
@@ -435,34 +439,33 @@ function handlePinchMove(event, imgElement) {
   const newScale = currentScale * scaleFactor;
 
   // Ограничиваем масштабирование, чтобы изображение не сжималось слишком маленьким
-  const minScale = 0.1; // Минимальный масштаб, который задан в CSS
+  const minScale = 1; // Минимальный масштаб, который задан в CSS
   const maxScale = 3; // Максимальный масштаб, который задан в CSS
   if (newScale < minScale || newScale > maxScale) return;
 
   // Применяем новый масштаб и центр зума
   imgElement.style.transform = `translate(-50%, -50%) scale(${newScale})`;
   imgElement.style.transition = "none";
-  imgElement.style.transformOrigin = `${pinchCenterX}px ${pinchCenterY}px`;
+  imgElement.style.transformOrigin = `${imgCenterX}px ${imgCenterY}px`;
 
   // Обновляем начальное расстояние для следующего шага
   initialDistance = currentDistance;
 }
 
-// Функция для увеличения/уменьшения полноразмерного изображения
 function zoomFullImage(imgElement) {
   const rect = imgElement.getBoundingClientRect();
   const offsetX = window.innerWidth / 2 - rect.left;
   const offsetY = window.innerHeight / 2 - rect.top;
 
   if (imgElement.classList.contains("zoomed")) {
+    // Уменьшение масштаба и сброс смещения
     imgElement.style.cursor = "zoom-in";
     imgElement.style.transition =
       "transform 0.3s ease-in-out, top 0.3s ease-in-out, left 0.3s ease-in-out";
     imgElement.style.transform = `translate(-50%, -50%) scale(1)`;
-    imgElement.style.top = "50%";
-    imgElement.style.left = "50%";
     imgElement.classList.remove("zoomed");
   } else {
+    // Увеличение масштаба и вычисление смещения
     imgElement.style.cursor = "move";
     const scale = 3;
 
