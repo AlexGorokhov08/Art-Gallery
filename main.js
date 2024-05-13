@@ -405,52 +405,52 @@ window.addEventListener("popstate", function (event) {
   }
 });
 
-// Обработчик события начала жеста разведения
-function handlePinchStart(event, imgElement) {
-  if (!imgElement) return; // Проверяем, определен ли imgElement
-  isPinching = true;
-  initialDistance = calculateDistance(event);
+// // Обработчик события начала жеста разведения
+// function handlePinchStart(event, imgElement) {
+//   if (!imgElement) return; // Проверяем, определен ли imgElement
+//   isPinching = true;
+//   initialDistance = calculateDistance(event);
 
-  // Сохраняем текущие координаты центра изображения
-  const rect = imgElement.getBoundingClientRect();
-  imgCenterX = rect.left + rect.width / 2;
-  imgCenterY = rect.top + rect.height / 2;
+//   // Сохраняем текущие координаты центра изображения
+//   const rect = imgElement.getBoundingClientRect();
+//   imgCenterX = rect.left + rect.width / 2;
+//   imgCenterY = rect.top + rect.height / 2;
 
-  // Находим центр жеста пинча
-  pinchCenterX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
-  pinchCenterY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
-}
+//   // Находим центр жеста пинча
+//   pinchCenterX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
+//   pinchCenterY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
+// }
 
-// Обработчик события изменения жеста разведения
-function handlePinchMove(event, imgElement) {
-  if (!isPinching || !imgElement || typeof pinchCenterX === "undefined") return; // Проверяем, определены ли переменные
+// // Обработчик события изменения жеста разведения
+// function handlePinchMove(event, imgElement) {
+//   if (!isPinching || !imgElement || typeof pinchCenterX === "undefined") return; // Проверяем, определены ли переменные
 
-  const currentDistance = calculateDistance(event);
-  const delta = currentDistance - initialDistance;
+//   const currentDistance = calculateDistance(event);
+//   const delta = currentDistance - initialDistance;
 
-  // Изменение масштаба изображения
-  scaleFactor = 1 + delta * 0.01; // Уменьшаем коэффициент масштабирования
+//   // Изменение масштаба изображения
+//   scaleFactor = 1 + delta * 0.01; // Уменьшаем коэффициент масштабирования
 
-  // Учитываем текущий масштаб изображения
-  const currentTransform = window
-    .getComputedStyle(imgElement)
-    .getPropertyValue("transform");
-  const currentScale = parseFloat(currentTransform.split(" ")[3]); // Получаем масштаб из CSS трансформации
-  const newScale = currentScale * scaleFactor;
+//   // Учитываем текущий масштаб изображения
+//   const currentTransform = window
+//     .getComputedStyle(imgElement)
+//     .getPropertyValue("transform");
+//   const currentScale = parseFloat(currentTransform.split(" ")[3]); // Получаем масштаб из CSS трансформации
+//   const newScale = currentScale * scaleFactor;
 
-  // Ограничиваем масштабирование, чтобы изображение не сжималось слишком маленьким
-  const minScale = 1; // Минимальный масштаб, который задан в CSS
-  const maxScale = 3; // Максимальный масштаб, который задан в CSS
-  if (newScale < minScale || newScale > maxScale) return;
+//   // Ограничиваем масштабирование, чтобы изображение не сжималось слишком маленьким
+//   const minScale = 1; // Минимальный масштаб, который задан в CSS
+//   const maxScale = 3; // Максимальный масштаб, который задан в CSS
+//   if (newScale < minScale || newScale > maxScale) return;
 
-  // Применяем новый масштаб и центр зума
-  imgElement.style.transform = `translate(-50%, -50%) scale(${newScale})`;
-  imgElement.style.transition = "none";
-  imgElement.style.transformOrigin = `${imgCenterX}px ${imgCenterY}px`;
+//   // Применяем новый масштаб и центр зума
+//   imgElement.style.transform = `translate(-50%, -50%) scale(${newScale})`;
+//   imgElement.style.transition = "none";
+//   imgElement.style.transformOrigin = `${imgCenterX}px ${imgCenterY}px`;
 
-  // Обновляем начальное расстояние для следующего шага
-  initialDistance = currentDistance;
-}
+//   // Обновляем начальное расстояние для следующего шага
+//   initialDistance = currentDistance;
+// }
 
 function zoomFullImage(imgElement) {
   const rect = imgElement.getBoundingClientRect();
