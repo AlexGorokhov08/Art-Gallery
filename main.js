@@ -425,26 +425,33 @@ function zoomFullImage(imgElement) {
 // Функция для закрытия полноразмерного изображения
 function closeFullImages() {
   body.style.overflow = ""; // Восстанавливаем прокрутку страницы
-  fullImages.forEach((img) => img.remove()); // Удаляем все полноразмерные изображения из DOM
-  fullImages = []; // Очищаем массив полноразмерных изображений
   loader.style.display = "none"; // Скрываем загрузчик
   close.style.display = "none"; // Скрываем кнопку закрытия
   bodyOverlay.classList.remove("darken-active"); // Убираем класс для затемнения оверлея
   bodyOverlay.style.backgroundColor = ""; // Убираем цвет для оверлея
   close.removeEventListener("click", closeFullImages); // Удаляем обработчик клика по кнопке закрытия
-  history.back();
+  history.back(); // Перед удалением изображений вызываем history.back()
+  fullImages.forEach((img) => img.remove()); // Удаляем все полноразмерные изображения из DOM
+  fullImages = []; // Очищаем массив полноразмерных изображений
 }
 
 // Обработчик события начала жеста разведения
-function handlePinchStart(event) {
+function handlePinchStart(event, imgElement) {
+  if (!imgElement) return; // Проверяем, определен ли imgElement
   isPinching = true;
   initialDistance = calculateDistance(event);
+
+  // Находим центр жеста пинча
+  const rect = imgElement.getBoundingClientRect();
+  pinchCenterX =
+    (event.touches[0].clientX + event.touches[1].clientX) / 2 - rect.left;
+  pinchCenterY =
+    (event.touches[0].clientY + event.touches[1].clientY) / 2 - rect.top;
 }
 
 // Обработчик события изменения жеста разведения
-// Обработчик события изменения жеста разведения
 function handlePinchMove(event, imgElement) {
-  if (!isPinching || !imgElement) return;
+  if (!isPinching || !imgElement || typeof pinchCenterX === "undefined") return; // Проверяем, определены ли переменные
 
   const currentDistance = calculateDistance(event);
   const delta = currentDistance - initialDistance;
@@ -464,8 +471,12 @@ function handlePinchMove(event, imgElement) {
   const maxScale = 3; // Максимальный масштаб, который задан в CSS
   if (newScale < minScale || newScale > maxScale) return;
 
-  // Применяем новый масштаб
-  imgElement.style.transform = `scale(${newScale})`;
+  // Рассчитываем смещение для компенсации начального сдвига при увеличении
+  const deltaX = (pinchCenterX - startX) * (1 - scaleFactor);
+  const deltaY = (pinchCenterY - startY) * (1 - scaleFactor);
+
+  // Применяем новый масштаб и смещение
+  imgElement.style.transform = `translate(-50%, -50%) scale(${newScale}) translate(${deltaX}px, ${deltaY}px)`;
 }
 
 // Обработчик события окончания жеста разведения
