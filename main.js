@@ -331,16 +331,49 @@ function openFullImage(src) {
   });
 
   imgElement.addEventListener("touchmove", (e) => {
-    if (!isDragging && imgElement.classList.contains("zoomed")) {
-      handlePinchMove(e, imgElement);
+    e.preventDefault();
+
+    if (!imgElement.classList.contains("zoomed")) {
+      return;
     }
 
-    const touch = e.touches[0];
-    const offsetX = touch.clientX - startX;
-    const offsetY = touch.clientY - startY;
+    // Если два касания, то вычисляем расстояние между ними для увеличения/уменьшения изображения
+    if (e.touches.length >= 2) {
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const currentX = (touch1.clientX + touch2.clientX) / 2;
+      const currentY = (touch1.clientY + touch2.clientY) / 2;
+      const currentDistance = Math.sqrt(
+        Math.pow(currentX - startX, 2) + Math.pow(currentY - startY, 2),
+      );
+      const startDistance = Math.sqrt(
+        Math.pow(touch1.clientX - touch2.clientX, 2) +
+          Math.pow(touch1.clientY - touch2.clientY, 2),
+      );
+      const scale = currentDistance / startDistance;
 
-    imgElement.style.left = startOffsetX + offsetX + "px";
-    imgElement.style.top = startOffsetY + offsetY + "px";
+      // Увеличиваем/уменьшаем изображение в соответствии с масштабом
+      imgElement.style.width = `${imgElement.offsetWidth * scale}px`;
+      imgElement.style.height = `${imgElement.offsetHeight * scale}px`;
+
+      // Обновляем начальные координаты и смещение для корректного перемещения изображения
+      startX = currentX;
+      startY = currentY;
+      startOffsetX = imgElement.offsetLeft;
+      startOffsetY = imgElement.offsetTop;
+
+      // Вычисляем новые координаты для центрирования изображения
+      const offsetX = startX - (startX - startOffsetX) * scale;
+      const offsetY = startY - (startY - startOffsetY) * scale;
+      imgElement.style.left = `${offsetX}px`;
+      imgElement.style.top = `${offsetY}px`;
+    } else {
+      const touch = e.touches[0];
+      const offsetX = touch.clientX - startX;
+      const offsetY = touch.clientY - startY;
+      imgElement.style.left = startOffsetX + offsetX + "px";
+      imgElement.style.top = startOffsetY + offsetY + "px";
+    }
   });
 
   // Обработчики для перемещения изображения с помощью мыши
@@ -405,69 +438,22 @@ window.addEventListener("popstate", function (event) {
   }
 });
 
-// // Обработчик события начала жеста разведения
-// function handlePinchStart(event, imgElement) {
-//   if (!imgElement) return; // Проверяем, определен ли imgElement
-//   isPinching = true;
-//   initialDistance = calculateDistance(event);
-
-//   // Сохраняем текущие координаты центра изображения
-//   const rect = imgElement.getBoundingClientRect();
-//   imgCenterX = rect.left + rect.width / 2;
-//   imgCenterY = rect.top + rect.height / 2;
-
-//   // Находим центр жеста пинча
-//   pinchCenterX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
-//   pinchCenterY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
-// }
-
-// // Обработчик события изменения жеста разведения
-// function handlePinchMove(event, imgElement) {
-//   if (!isPinching || !imgElement || typeof pinchCenterX === "undefined") return; // Проверяем, определены ли переменные
-
-//   const currentDistance = calculateDistance(event);
-//   const delta = currentDistance - initialDistance;
-
-//   // Изменение масштаба изображения
-//   scaleFactor = 1 + delta * 0.01; // Уменьшаем коэффициент масштабирования
-
-//   // Учитываем текущий масштаб изображения
-//   const currentTransform = window
-//     .getComputedStyle(imgElement)
-//     .getPropertyValue("transform");
-//   const currentScale = parseFloat(currentTransform.split(" ")[3]); // Получаем масштаб из CSS трансформации
-//   const newScale = currentScale * scaleFactor;
-
-//   // Ограничиваем масштабирование, чтобы изображение не сжималось слишком маленьким
-//   const minScale = 1; // Минимальный масштаб, который задан в CSS
-//   const maxScale = 3; // Максимальный масштаб, который задан в CSS
-//   if (newScale < minScale || newScale > maxScale) return;
-
-//   // Применяем новый масштаб и центр зума
-//   imgElement.style.transform = `translate(-50%, -50%) scale(${newScale})`;
-//   imgElement.style.transition = "none";
-//   imgElement.style.transformOrigin = `${imgCenterX}px ${imgCenterY}px`;
-
-//   // Обновляем начальное расстояние для следующего шага
-//   initialDistance = currentDistance;
-// }
-
+// Функция увеличения/уменьшения полноразмерного изображения
 function zoomFullImage(imgElement) {
-  const rect = imgElement.getBoundingClientRect();
-  const offsetX = window.innerWidth / 2 - rect.left;
-  const offsetY = window.innerHeight / 2 - rect.top;
-
   if (imgElement.classList.contains("zoomed")) {
-    // Уменьшение масштаба и сброс смещения
     imgElement.style.cursor = "zoom-in";
     imgElement.style.transition =
       "transform 0.3s ease-in-out, top 0.3s ease-in-out, left 0.3s ease-in-out";
-    imgElement.style.transform = `translate(-50%, -50%) scale(1)`;
+    imgElement.style.transform = "translate(-50%, -50%) scale(1)";
+    imgElement.style.top = "50%";
+    imgElement.style.left = "50%";
     imgElement.classList.remove("zoomed");
   } else {
-    // Увеличение масштаба и вычисление смещения
     imgElement.style.cursor = "move";
-    const scale = 3;
+    const rect = imgElement.getBoundingClientRect();
+    const offsetX = window.innerWidth / 2 - rect.left;
+    const offsetY = window.innerHeight / 2 - rect.top;
+    const scale = 2;
 
     imgElement.style.transition = "transform 0.3s ease-in-out";
     imgElement.style.transformOrigin = `${offsetX}px ${offsetY}px`;
