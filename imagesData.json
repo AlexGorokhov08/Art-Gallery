@@ -93,6 +93,11 @@
   ],
   "portraits-pencil": [
     {
+      "id": 12,
+      "fullSizeSrc": "imgs/portraits/pencil/20240602_154406.jpg",
+      "lowQualitySrc": "imgs/portraits/pencil/lowsize/20240602_154406.lowSize.jpg"
+    },
+    {
       "id": 11,
       "fullSizeSrc": "imgs/portraits/pencil/20240509_141350.jpg",
       "lowQualitySrc": "imgs/portraits/pencil/lowsize/20240509_141350_lowSize.jpg"
@@ -149,6 +154,16 @@
     }
   ],
   "other-watercolor": [
+    {
+      "id": 22,
+      "fullSizeSrc": "imgs/other/watercolor/20240531_082728.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240531_082728.lowSize.jpg"
+    },
+    {
+      "id": 21,
+      "fullSizeSrc": "imgs/other/watercolor/20240527_132230.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240527_132230.lowSize.jpg"
+    },
     {
       "id": 20,
       "fullSizeSrc": "imgs/other/watercolor/20240523_095234.jpg",
