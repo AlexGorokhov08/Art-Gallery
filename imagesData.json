@@ -168,111 +168,135 @@
       "lowQualitySrc": "imgs/portraits/pencil/lowsize/20231223_000553_lowSize.jpg"
     }
   ],
-  "other-watercolor": [
+  "botany-watercolor": [
     {
-      "id": 29,
-      "fullSizeSrc": "imgs/other/watercolor/20240918_170427.jpeg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240918_170427_lowSize.jpg"
+      "id": 16,
+      "fullSizeSrc": "imgs/botany/watercolor/20240918_170427.jpeg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240918_170427_lowSize.jpg"
     },
     {
-      "id": 28,
+      "id": 15,
+      "fullSizeSrc": "imgs/botany/watercolor/20240831_171704.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240831_171704_lowSize.jpg"
+    },
+    {
+      "id": 14,
+      "fullSizeSrc": "imgs/botany/watercolor/20240830_171838.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240830_171838_lowSize.jpg"
+    },
+    {
+      "id": 13,
+      "fullSizeSrc": "imgs/botany/watercolor/20240819_170323.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240819_170323_lowSize.jpg"
+    },
+    {
+      "id": 12,
+      "fullSizeSrc": "imgs/botany/watercolor/20240818_170308.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240818_170308_lowSize.jpg"
+    },
+    {
+      "id": 11,
+      "fullSizeSrc": "imgs/botany/watercolor/20240709_171518.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240709_171518_lowSize.jpg"
+    },
+    {
+      "id": 10,
+      "fullSizeSrc": "imgs/botany/watercolor/20240531_082728.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240531_082728_lowSize.jpg"
+    },
+    {
+      "id": 9,
+      "fullSizeSrc": "imgs/botany/watercolor/20240527_132230.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240527_132230_lowSize.jpg"
+    },
+    {
+      "id": 8,
+      "fullSizeSrc": "imgs/botany/watercolor/20240523_095234.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240523_095234_lowSize.jpg"
+    },
+    {
+      "id": 7,
+      "fullSizeSrc": "imgs/botany/watercolor/20240522_184523.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240522_184523_lowSize.jpg"
+    },
+    {
+      "id": 6,
+      "fullSizeSrc": "imgs/botany/watercolor/20240521_090503.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240521_090503_lowSize.jpg"
+    },
+    {
+      "id": 5,
+      "fullSizeSrc": "imgs/botany/watercolor/20240501_093018.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240501_093018_lowSize.jpg"
+    },
+    {
+      "id": 4,
+      "fullSizeSrc": "imgs/botany/watercolor/20240428_132136.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240428_132136_lowSize.jpg"
+    },
+    {
+      "id": 3,
+      "fullSizeSrc": "imgs/botany/watercolor/20240420_142622.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240420_142622_lowSize.jpg"
+    },
+    {
+      "id": 2,
+      "fullSizeSrc": "imgs/botany/watercolor/20240330_154212.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240330_154212_lowSize.jpg"
+    },
+    {
+      "id": 1,
+      "fullSizeSrc": "imgs/botany/watercolor/20240310_114711.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240310_114711_lowSize.jpg"
+    }
+  ],
+  "botany-graphic": [
+    {
+      "id": 4,
+      "fullSizeSrc": "imgs/botany/graphic/20230919_145612.jpg",
+      "lowQualitySrc": "imgs/botany/graphic/lowsize/20230919_145612_lowSize.jpg"
+    },
+    {
+      "id": 3,
+      "fullSizeSrc": "imgs/botany/graphic/20230807_220612.jpg",
+      "lowQualitySrc": "imgs/botany/graphic/lowsize/20230807_220612_lowSize.jpg"
+    },
+    {
+      "id": 2,
+      "fullSizeSrc": "imgs/botany/graphic/20230730_223706.jpg",
+      "lowQualitySrc": "imgs/botany/graphic/lowsize/20230730_223706_lowSize.jpg"
+    },
+    {
+      "id": 1,
+      "fullSizeSrc": "imgs/botany/graphic/20230720_144006.jpg",
+      "lowQualitySrc": "imgs/botany/graphic/lowsize/20230720_144006_lowSize.jpg"
+    }
+  ],
+  "other-watercolor": [
+    {
+      "id": 13,
       "fullSizeSrc": "imgs/other/watercolor/20240917_094224.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240917_094224_lowSize.jpg"
     },
     {
-      "id": 27,
-      "fullSizeSrc": "imgs/other/watercolor/20240831_171704.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240831_171704_lowSize.jpg"
-    },
-    {
-      "id": 26,
-      "fullSizeSrc": "imgs/other/watercolor/20240830_171838.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/20240830_171838.jpg"
-    },
-    {
-      "id": 25,
-      "fullSizeSrc": "imgs/other/watercolor/20240819_170323.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240819_170323_lowSize.jpg"
-    },
-    {
-      "id": 24,
-      "fullSizeSrc": "imgs/other/watercolor/20240818_170308.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240818_170308_lowSize.jpg"
-    },
-    {
-      "id": 23,
-      "fullSizeSrc": "imgs/other/watercolor/20240709_171518.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240709_171518_lowSize.jpg"
-    },
-    {
-      "id": 22,
-      "fullSizeSrc": "imgs/other/watercolor/20240531_082728.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240531_082728_lowSize.jpg"
-    },
-    {
-      "id": 21,
-      "fullSizeSrc": "imgs/other/watercolor/20240527_132230.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240527_132230_lowSize.jpg"
-    },
-    {
-      "id": 20,
-      "fullSizeSrc": "imgs/other/watercolor/20240523_095234.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240523_095234_lowSize.jpg"
-    },
-    {
-      "id": 19,
-      "fullSizeSrc": "imgs/other/watercolor/20240522_184523.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240522_184523_lowSize.jpg"
-    },
-    {
-      "id": 18,
-      "fullSizeSrc": "imgs/other/watercolor/20240521_090503.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240521_090503_lowSize.jpg"
-    },
-    {
-      "id": 17,
+      "id": 12,
       "fullSizeSrc": "imgs/other/watercolor/20240513_170239.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240513_170239_lowSize.jpg"
     },
     {
-      "id": 16,
-      "fullSizeSrc": "imgs/other/watercolor/20240501_093018.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240501_093018_lowSize.jpg"
-    },
-    {
-      "id": 15,
-      "fullSizeSrc": "imgs/other/watercolor/20240428_132136.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240428_132136_lowSize.jpg"
-    },
-    {
-      "id": 14,
-      "fullSizeSrc": "imgs/other/watercolor/20240420_142622.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240420_142622_lowSize.jpg"
-    },
-    {
-      "id": 13,
+      "id": 11,
       "fullSizeSrc": "imgs/other/watercolor/20240407_093924.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240407_093924_lowSize.jpg"
     },
     {
-      "id": 12,
+      "id": 10,
       "fullSizeSrc": "imgs/other/watercolor/20240402_152819.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240402_152819_lowSize.jpg"
     },
     {
-      "id": 11,
+      "id": 9,
       "fullSizeSrc": "imgs/other/watercolor/20240331_091857.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240331_091857_lowSize.jpg"
-    },
-    {
-      "id": 10,
-      "fullSizeSrc": "imgs/other/watercolor/20240330_154212.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240330_154212_lowSize.jpg"
-    },
-    {
-      "id": 9,
-      "fullSizeSrc": "imgs/other/watercolor/20240310_114711.jpg",
-      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240310_114711_lowSize.jpg"
     },
     {
       "id": 8,
@@ -356,44 +380,24 @@
   ],
   "other-graphic": [
     {
-      "id": 8,
-      "fullSizeSrc": "imgs/other/graphic/20230919_145612.jpg",
-      "lowQualitySrc": "imgs/other/graphic/lowsize/20230919_145612_lowSize.jpg"
-    },
-    {
-      "id": 7,
+      "id": 4,
       "fullSizeSrc": "imgs/other/graphic/20230827_105850.jpg",
       "lowQualitySrc": "imgs/other/graphic/lowsize/20230827_105850_lowSize.jpg"
     },
     {
-      "id": 6,
+      "id": 3,
       "fullSizeSrc": "imgs/other/graphic/20230824_171125.jpg",
       "lowQualitySrc": "imgs/other/graphic/lowsize/20230824_171125_lowSize.jpg"
     },
     {
-      "id": 5,
-      "fullSizeSrc": "imgs/other/graphic/20230807_220612.jpg",
-      "lowQualitySrc": "imgs/other/graphic/lowsize/20230807_220612_lowSize.jpg"
-    },
-    {
-      "id": 4,
-      "fullSizeSrc": "imgs/other/graphic/20230730_223706.jpg",
-      "lowQualitySrc": "imgs/other/graphic/lowsize/20230730_223706_lowSize.jpg"
-    },
-    {
-      "id": 3,
+      "id": 2,
       "fullSizeSrc": "imgs/other/graphic/20230723_161552.jpg",
       "lowQualitySrc": "imgs/other/graphic/lowsize/20230723_161552_lowSize.jpg"
     },
     {
-      "id": 2,
+      "id": 1,
       "fullSizeSrc": "imgs/other/graphic/20230720_153926.jpg",
       "lowQualitySrc": "imgs/other/graphic/lowsize/20230720_153926_lowSize.jpg"
-    },
-    {
-      "id": 1,
-      "fullSizeSrc": "imgs/other/graphic/20230720_144006.jpg",
-      "lowQualitySrc": "imgs/other/graphic/lowsize/20230720_144006_lowSize.jpg"
     }
   ]
 }
