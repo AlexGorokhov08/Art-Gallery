@@ -170,14 +170,34 @@
   ],
   "other-watercolor": [
     {
-      "id": 25,
+      "id": 29,
+      "fullSizeSrc": "imgs/other/watercolor/20240918_170427.jpeg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240918_170427_lowSize.jpg"
+    },
+    {
+      "id": 28,
+      "fullSizeSrc": "imgs/other/watercolor/20240917_094224.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240917_094224_lowSize.jpg"
+    },
+    {
+      "id": 27,
       "fullSizeSrc": "imgs/other/watercolor/20240831_171704.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240831_171704_lowSize.jpg"
     },
     {
-      "id": 24,
+      "id": 26,
       "fullSizeSrc": "imgs/other/watercolor/20240830_171838.jpg",
       "lowQualitySrc": "imgs/other/watercolor/20240830_171838.jpg"
+    },
+    {
+      "id": 25,
+      "fullSizeSrc": "imgs/other/watercolor/20240819_170323.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240819_170323_lowSize.jpg"
+    },
+    {
+      "id": 24,
+      "fullSizeSrc": "imgs/other/watercolor/20240818_170308.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240818_170308_lowSize.jpg"
     },
     {
       "id": 23,
