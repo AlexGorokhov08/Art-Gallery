@@ -310,12 +310,12 @@ input:checked + .slider:before {
 
 .spoiler::before {
   transform: rotate(40deg);
-  left: 150px;
+  left: 160px;
 }
 
 .spoiler::after {
   transform: rotate(-40deg);
-  left: 157px;
+  left: 167px;
 }
 
 .spoiler.spoiler-active::before {

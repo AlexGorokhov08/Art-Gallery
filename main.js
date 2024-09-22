@@ -511,7 +511,7 @@ function animateLanguageIcon() {
 
 // Загрузка и применение переводов при загрузке страницы
 document.addEventListener("DOMContentLoaded", async function () {
-  const preferredLanguage = "en"; // Язык по умолчанию (английский)
+  const preferredLanguage = "ru"; // Язык по умолчанию (русский)
   try {
     const translations = await loadTranslations(preferredLanguage);
     applyTranslations(translations);
@@ -526,7 +526,7 @@ document
   .querySelector(".language")
   .addEventListener("click", async function () {
     const currentLanguage = document.documentElement.lang;
-    const newLanguage = currentLanguage === "en" ? "ru" : "en"; // Переключение между английским и русским языками
+    const newLanguage = currentLanguage === "ru" ? "en" : "ru"; // Переключение между английским и русским языками
     try {
       const translations = await loadTranslations(newLanguage);
       applyTranslations(translations);

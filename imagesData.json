@@ -274,9 +274,24 @@
   ],
   "other-watercolor": [
     {
-      "id": 13,
+      "id": 16,
       "fullSizeSrc": "imgs/other/watercolor/20240917_094224.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240917_094224_lowSize.jpg"
+    },
+    {
+      "id": 15,
+      "fullSizeSrc": "imgs/other/watercolor/20240913_113320.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240913_113320_lowSize.jpg"
+    },
+    {
+      "id": 14,
+      "fullSizeSrc": "imgs/other/watercolor/20240911_113234.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240911_113234_lowSize.jpg"
+    },
+    {
+      "id": 13,
+      "fullSizeSrc": "imgs/other/watercolor/20240906_113200.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240906_113200_lowSize.jpg"
     },
     {
       "id": 12,
