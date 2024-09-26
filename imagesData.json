@@ -170,6 +170,16 @@
   ],
   "botany-watercolor": [
     {
+      "id": 18,
+      "fullSizeSrc": "imgs/botany/watercolor/20240926_040728.jpeg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240926_040728_lowSize.jpg"
+    },
+    {
+      "id": 17,
+      "fullSizeSrc": "imgs/botany/watercolor/20240924_150334.jpg",
+      "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240924_150334_lowSize.jpg"
+    },
+    {
       "id": 16,
       "fullSizeSrc": "imgs/botany/watercolor/20240918_170427.jpeg",
       "lowQualitySrc": "imgs/botany/watercolor/lowsize/20240918_170427_lowSize.jpg"
@@ -274,9 +284,14 @@
   ],
   "other-watercolor": [
     {
-      "id": 16,
+      "id": 17,
       "fullSizeSrc": "imgs/other/watercolor/20240917_094224.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240917_094224_lowSize.jpg"
+    },
+    {
+      "id": 16,
+      "fullSizeSrc": "imgs/other/watercolor/20240914_113320.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20240914_113320_lowSize.jpg"
     },
     {
       "id": 15,
