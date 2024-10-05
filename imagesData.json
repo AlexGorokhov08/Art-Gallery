@@ -284,6 +284,11 @@
   ],
   "other-watercolor": [
     {
+      "id": 18,
+      "fullSizeSrc": "imgs/other/watercolor/20241001_154249.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20241001_154249_lowSize.jpg"
+    },
+    {
       "id": 17,
       "fullSizeSrc": "imgs/other/watercolor/20240917_094224.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20240917_094224_lowSize.jpg"
