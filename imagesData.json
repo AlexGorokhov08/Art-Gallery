@@ -376,6 +376,11 @@
   ],
   "other-pencil": [
     {
+      "id": 3,
+      "fullSizeSrc": "imgs/other/pencil/20241008_134433.jpg",
+      "lowQualitySrc": "imgs/other/pencil/lowsize/20241008_134433_lowSize.jpg"
+    },
+    {
       "id": 2,
       "fullSizeSrc": "imgs/other/pencil/20231019_143756.jpg",
       "lowQualitySrc": "imgs/other/pencil/lowsize/20231019_143756_lowSize.jpg"
