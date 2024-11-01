@@ -284,6 +284,11 @@
   ],
   "other-watercolor": [
     {
+      "id": 19,
+      "fullSizeSrc": "imgs/other/watercolor/20241024_102121.jpg",
+      "lowQualitySrc": "imgs/other/watercolor/lowsize/20241024_102121_lowSize.jpg"
+    },
+    {
       "id": 18,
       "fullSizeSrc": "imgs/other/watercolor/20241001_154249.jpg",
       "lowQualitySrc": "imgs/other/watercolor/lowsize/20241001_154249_lowSize.jpg"
@@ -376,6 +381,16 @@
   ],
   "other-pencil": [
     {
+      "id": 5,
+      "fullSizeSrc": "imgs/other/pencil/20241022_141507.jpg",
+      "lowQualitySrc": "imgs/other/pencil/lowsize/20241022_141507_lowSize.jpg"
+    },
+    {
+      "id": 4,
+      "fullSizeSrc": "imgs/other/pencil/20241017_142245.jpg",
+      "lowQualitySrc": "imgs/other/pencil/lowsize/20241017_142245_lowSize.jpg"
+    },
+    {
       "id": 3,
       "fullSizeSrc": "imgs/other/pencil/20241008_134433.jpg",
       "lowQualitySrc": "imgs/other/pencil/lowsize/20241008_134433_lowSize.jpg"
@@ -392,6 +407,11 @@
     }
   ],
   "other-gouache": [
+    {
+      "id": 6,
+      "fullSizeSrc": "imgs/other/gouache/20241011_191531.jpg",
+      "lowQualitySrc": "imgs/other/gouache/lowsize/20241011_191531_lowSize.jpg"
+    },
     {
       "id": 5,
       "fullSizeSrc": "imgs/other/gouache/20231119_000500.jpg",
